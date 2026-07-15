@@ -67,10 +67,10 @@ EXPERIENCE:
    - Improved system stability through automated testing and validation pipelines.
 
 PROJECTS:
-1. PageSense - Context-Aware Browser Assistant (RAG)
-   - Chrome extension chatbot that answers queries on any webpage using a custom RAG pipeline.
-   - Uses FastAPI backend, FAISS for semantic search (<2s latency), and Sentence-Transformers.
-   - Improved answer relevance via prompt tuning and chunk optimization.
+1. FoodPilot - AI Food Ordering Concierge
+   - Built an AI concierge that autonomously orchestrates Swiggy's food-ordering tools via Anthropic's native MCP connector.
+   - Reduced input token costs by up to 90% by implementing Anthropic prompt caching.
+   - Designed encrypted OAuth token storage and fixed a UI jitter issue during SSE token streaming.
 
 2. InsightLense - Multimodal Research Document Assistant
    - Built a multimodal RAG system for parsing complex PDFs (charts, tables, text).
@@ -107,8 +107,8 @@ const simulateRAGResponse = (query) => {
   if (q.includes('python') || q.includes('langchain') || q.includes('skill'))
     return "Jayesh works with Python, LangChain, and FastAPI to build production-ready AI systems, including RAG pipelines and scalable backends.";
 
-  if (q.includes('project') || q.includes('rag') || q.includes('fraud'))
-    return "His key projects include: 1) PageSense (browser-based RAG assistant), 2) InsightLense (multimodal RAG for PDFs), and 3) a fraud detection API built on 6.3M+ transactions.";
+  if (q.includes('project') || q.includes('foodpilot') || q.includes('fraud') || q.includes('insightlense'))
+    return "His key projects include: 1) FoodPilot (AI food ordering concierge), 2) InsightLense (multimodal RAG for PDFs), and 3) a fraud detection API built on 6.3M+ transactions.";
 
   if (q.includes('experience') || q.includes('work') || q.includes('intern'))
     return "He worked as an AI/ML Software Developer Intern in Bangalore, where he built a WhatsApp-based AI sales agent using Gemini and FastAPI.";
@@ -1179,8 +1179,8 @@ export default function Portfolio() {
               className="glass-ui ml-2.5 px-2 py-0.5 rounded-full text-[9px] font-semibold uppercase tracking-wider font-sans transition-all flex items-center gap-1 cursor-pointer shadow-sm"
             >
               <span className={`w-1.5 h-1.5 rounded-full transition-all duration-300 ${gameActive
-                  ? 'bg-emerald-400 shadow-[0_0_8px_#34d399] scale-110 animate-pulse'
-                  : 'bg-emerald-950/60 border border-emerald-500/20'
+                ? 'bg-emerald-400 shadow-[0_0_8px_#34d399] scale-110 animate-pulse'
+                : 'bg-emerald-950/60 border border-emerald-500/20'
                 }`}></span>
               <span>Game Mode: {gameActive ? 'ON' : 'OFF'}</span>
             </button>
@@ -1223,7 +1223,7 @@ export default function Portfolio() {
           onClick={() => setMobileMenuOpen(false)}
           className={`absolute inset-0 bg-black/30 backdrop-blur-sm transition-opacity duration-300 ${mobileMenuOpen ? 'opacity-100' : 'opacity-0'}`}
         />
-        
+
         {/* Drawer content panel */}
         <div className={`absolute top-0 left-0 bottom-0 w-[260px] bg-white/95 backdrop-blur-md border-r border-gray-100 shadow-2xl flex flex-col justify-between p-6 transition-transform duration-300 ease-out transform ${mobileMenuOpen ? 'translate-x-0' : '-translate-x-full'}`}>
           <div>
@@ -1500,20 +1500,20 @@ export default function Portfolio() {
           {/* Single row of 3 compact project cards */}
           <div className="grid grid-cols-1 md:grid-cols-3 gap-5">
 
-            {/* 1. PageSense */}
+            {/* 1. FoodPilot */}
             <CompactProjectCard
-              title="PageSense"
-              role="Chrome Extension · RAG"
-              icon={Search}
+              title="FoodPilot"
+              role="AI Concierge · MCP"
+              icon={Bot}
               gradient="from-blue-500 to-indigo-600"
-              stat="&lt;2s retrieval · LLaMA 3.2"
+              stat="-90% token cost · Claude"
               bullets={[
-                "Chrome extension answering queries on any live webpage",
-                "Custom RAG pipeline with FAISS semantic search",
-                "Prompt-tuned for context-aware, accurate responses",
+                "Autonomously orchestrates Swiggy's food-ordering tools via MCP",
+                "Implemented Anthropic prompt caching on a 12K-token schema",
+                "Encrypted OAuth token storage & optimized SSE token streaming",
               ]}
-              repoLink="https://github.com/jayesh-cmd/pagesense-rag-extension"
-              demoLink="https://www.linkedin.com/posts/cmd-jayesh_ai-machinelearning-generativeai-activity-7356755637784961024-YtXN"
+              repoLink="https://github.com/jayesh-cmd/swiggy_foodpilot"
+              demoLink="https://lnkd.in/p/gbggJFgA"
             />
 
             {/* 2. InsightLense */}

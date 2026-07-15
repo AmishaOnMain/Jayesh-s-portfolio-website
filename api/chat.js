@@ -38,10 +38,10 @@ EXPERIENCE:
    - Improved system stability through automated testing and validation pipelines.
 
 PROJECTS:
-1. PageSense - Context-Aware Browser Assistant (RAG)
-   - Chrome extension chatbot that answers queries on any webpage using a custom RAG pipeline.
-   - Uses FastAPI backend, FAISS for semantic search (<2s latency), and Sentence-Transformers.
-   - Improved answer relevance via prompt tuning and chunk optimization.
+1. FoodPilot - AI Food Ordering Concierge
+   - Built an AI concierge that autonomously orchestrates Swiggy's food-ordering tools via Anthropic's native MCP connector.
+   - Reduced input token costs by up to 90% by implementing Anthropic prompt caching.
+   - Designed encrypted OAuth token storage and fixed a UI jitter issue during SSE token streaming.
 
 2. InsightLense - Multimodal Research Document Assistant
    - Built a multimodal RAG system for parsing complex PDFs (charts, tables, text).
