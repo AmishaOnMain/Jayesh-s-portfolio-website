@@ -420,7 +420,7 @@ const CompactChat = () => {
                 <Bot size={10} className="text-blue-300" />
               </div>
             )}
-            <div className={`max-w-[85%] px-2.5 py-1.5 rounded-xl text-[11px] leading-relaxed backdrop-blur-md shadow-lg font-sans ${msg.role === 'user'
+            <div className={`max-w-[85%] px-2.5 py-1.5 rounded-xl text-[11px] leading-relaxed backdrop-blur-md shadow-lg font-sans whitespace-pre-wrap ${msg.role === 'user'
               ? 'bg-blue-600/90 text-white rounded-br-none border border-blue-400/30'
               : 'bg-white/10 text-white/90 rounded-bl-none border border-white/10'
               }`}>
