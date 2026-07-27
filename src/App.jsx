@@ -85,6 +85,27 @@ PROJECTS:
 EDUCATION:
 - Integrated MCA at Acropolis Institute, Indore (Expected 2027)
 - Relevant Coursework: DSA, DBMS, Computer Networks, OS
+
+CREATIVE BUILDS (Side Projects):
+1. Virtual Steering Wheel
+   - Control any racing game using just your hands and a webcam, no hardware needed.
+   - Uses MediaPipe hand tracking to detect fist and open-palm gestures for steering, acceleration, and braking.
+   - Tilting both fists steers left/right, open palms brake, closed fists accelerate.
+   - Tech: Python, MediaPipe, OpenCV
+   - GitHub: https://github.com/jayesh-cmd/virtual-steering-wheel
+
+2. Daydreamin (Personal iOS Music App)
+   - A fully functional iOS music player that streams real music from the internet.
+   - SwiftUI frontend with a Python FastAPI backend — search any song, stream it, control playback from lock screen.
+   - Tech: SwiftUI, Python, FastAPI
+   - GitHub: https://github.com/jayesh-cmd/Daydreamin
+
+3. Virtual Keyboard & Air Mouse
+   - A completely touchless computer interaction system using a webcam.
+   - Tracks both hands in real-time, assigning OS-level commands: type on a virtual AR keyboard and navigate like a mouse entirely mid-air.
+   - Won first place at a Project Exhibition.
+   - Tech: Python, OpenCV, MediaPipe
+   - GitHub: https://github.com/jayesh-cmd/virtual-keyboard
 ---
 
 GUIDELINES:
@@ -92,6 +113,7 @@ GUIDELINES:
 2. Be concise but enthusiastic.
 3. Always reply in structured way, write in next line when needed and always reply in structured and readable way
 4. Don't try to use any bold character and don't use ** anywhere just use simple english and reply naturally
+5. If the user asks about something specific (like code details, implementation specifics, or anything) that is not covered in the resume data above, tell them to refer to the relevant GitHub repository for full details.
 `;
 
 // --- SIMULATION LOGIC (Fallback for Preview without API Key) ---
@@ -1552,7 +1574,172 @@ export default function Portfolio() {
         </div>
       </section>
 
-      {/* --- Skills / FAQ Section --- */}
+      {/* --- Creative Builds Section --- */}
+      <section id="creative-builds" className="bg-gray-950 py-24 px-6 relative overflow-hidden z-10 border-t border-white/5">
+        {/* Background ambiance */}
+        <div className="absolute inset-0 bg-[url('https://www.transparenttextures.com/patterns/stardust.png')] opacity-10"></div>
+        <div className="absolute top-0 right-1/3 w-[600px] h-[400px] bg-purple-900/20 rounded-full blur-[100px] pointer-events-none"></div>
+        <div className="absolute bottom-0 left-0 w-[500px] h-[500px] bg-emerald-900/15 rounded-full blur-[80px] pointer-events-none"></div>
+
+        <div className="container mx-auto max-w-6xl relative z-10">
+          {/* Section header */}
+          <div className="mb-12">
+            <div className="flex items-center gap-3 mb-3">
+              <span className="text-xs text-purple-400 font-mono tracking-widest uppercase font-semibold">/ side projects</span>
+              <div className="flex-1 h-px bg-gradient-to-r from-purple-500/30 to-transparent hidden md:block"></div>
+            </div>
+            <h2 className="text-3xl md:text-4xl font-serif text-white mb-2">
+              Creative{' '}
+              <span className="bg-clip-text text-transparent bg-gradient-to-r from-purple-300 to-emerald-400">
+                Builds
+              </span>
+            </h2>
+            <p className="text-gray-400 text-sm font-sans">
+              Strange little experiments I build at the intersection of tech and art.
+            </p>
+          </div>
+
+          {/* Three creative project cards */}
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+
+            {/* 1. Virtual Steering Wheel */}
+            <div className="group relative rounded-2xl overflow-hidden border border-white/10 hover:border-purple-500/40 transition-all duration-500 flex flex-col" style={{ background: 'rgba(255,255,255,0.03)' }}>
+              {/* Image preview */}
+              <div className="relative overflow-hidden aspect-video bg-gray-900">
+                <img
+                  src="/virtual_steering.jpg"
+                  alt="Virtual Steering Wheel"
+                  className="w-full h-full object-cover opacity-80 group-hover:opacity-100 group-hover:scale-105 transition-all duration-700"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-gray-950 via-gray-950/20 to-transparent"></div>
+              </div>
+
+              {/* Content */}
+              <div className="p-5 flex flex-col flex-1">
+                <h3 className="text-sm font-semibold text-white mb-1 leading-tight">Virtual Steering Wheel</h3>
+                <p className="text-gray-400 text-[11px] leading-relaxed font-sans mb-1">
+                  Control any racing game with your hands — tilt your fists to steer, open palms to brake.
+                </p>
+                <p className="text-purple-400/70 text-[10px] font-mono mb-4">
+                  Python · MediaPipe · OpenCV
+                </p>
+
+                {/* Links */}
+                <div className="flex gap-2.5 mt-auto">
+                  <a href="https://github.com/jayesh-cmd/virtual-steering-wheel" target="_blank" rel="noopener noreferrer"
+                    className="flex items-center gap-1.5 px-3 py-1.5 bg-white/8 hover:bg-white/15 border border-white/15 rounded-full transition-colors"
+                    title="GitHub">
+                    <svg viewBox="0 0 24 24" className="w-3 h-3 fill-white" xmlns="http://www.w3.org/2000/svg">
+                      <path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z" />
+                    </svg>
+                    <span className="text-white text-[10px] font-medium font-sans">Code</span>
+                  </a>
+                  <a href="https://www.instagram.com/reel/DavJNiiS1Xh/?utm_source=ig_web_copy_link&igsh=NTc4MTIwNjQ2YQ==" target="_blank" rel="noopener noreferrer"
+                    className="flex items-center gap-1.5 px-3 py-1.5 bg-white/8 hover:bg-white/15 border border-white/15 rounded-full transition-colors"
+                    title="Instagram Reel">
+                    <svg viewBox="0 0 24 24" className="w-3 h-3 fill-white" xmlns="http://www.w3.org/2000/svg">
+                      <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z" />
+                    </svg>
+                    <span className="text-white text-[10px] font-medium font-sans">Reel</span>
+                  </a>
+                </div>
+              </div>
+            </div>
+
+            {/* 2. Daydreamin Music App */}
+            <div className="group relative rounded-2xl overflow-hidden border border-white/10 hover:border-purple-500/40 transition-all duration-500 flex flex-col" style={{ background: 'rgba(255,255,255,0.03)' }}>
+              {/* Image preview */}
+              <div className="relative overflow-hidden aspect-video bg-gray-900">
+                <img
+                  src="/music.jpg"
+                  alt="Daydreamin Music App"
+                  className="w-full h-full object-cover opacity-80 group-hover:opacity-100 group-hover:scale-105 transition-all duration-700"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-gray-950 via-gray-950/20 to-transparent"></div>
+              </div>
+
+              {/* Content */}
+              <div className="p-5 flex flex-col flex-1">
+                <h3 className="text-sm font-semibold text-white mb-1 leading-tight">Daydreamin</h3>
+                <p className="text-gray-400 text-[11px] leading-relaxed font-sans mb-1">
+                  A personal iOS music app that searches and streams any song from the internet with lock screen controls.
+                </p>
+                <p className="text-purple-400/70 text-[10px] font-mono mb-4">
+                  SwiftUI · Python · FastAPI
+                </p>
+
+                {/* Links */}
+                <div className="flex gap-2.5 mt-auto">
+                  <a href="https://github.com/jayesh-cmd/Daydreamin" target="_blank" rel="noopener noreferrer"
+                    className="flex items-center gap-1.5 px-3 py-1.5 bg-white/8 hover:bg-white/15 border border-white/15 rounded-full transition-colors"
+                    title="GitHub">
+                    <svg viewBox="0 0 24 24" className="w-3 h-3 fill-white" xmlns="http://www.w3.org/2000/svg">
+                      <path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z" />
+                    </svg>
+                    <span className="text-white text-[10px] font-medium font-sans">Code</span>
+                  </a>
+                  <a href="https://www.instagram.com/reel/DX9bqmvMWD3/?utm_source=ig_web_copy_link&igsh=MzRlODBiNWFlZA==" target="_blank" rel="noopener noreferrer"
+                    className="flex items-center gap-1.5 px-3 py-1.5 bg-white/8 hover:bg-white/15 border border-white/15 rounded-full transition-colors"
+                    title="Instagram Reel">
+                    <svg viewBox="0 0 24 24" className="w-3 h-3 fill-white" xmlns="http://www.w3.org/2000/svg">
+                      <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z" />
+                    </svg>
+                    <span className="text-white text-[10px] font-medium font-sans">Reel</span>
+                  </a>
+                </div>
+              </div>
+            </div>
+
+            {/* 3. Virtual Keyboard & Mouse */}
+            <div className="group relative rounded-2xl overflow-hidden border border-white/10 hover:border-purple-500/40 transition-all duration-500 flex flex-col" style={{ background: 'rgba(255,255,255,0.03)' }}>
+              {/* Image preview */}
+              <div className="relative overflow-hidden aspect-video bg-gray-900">
+                <img
+                  src="/virtual_mouse.jpg"
+                  alt="Virtual Keyboard and Mouse"
+                  className="w-full h-full object-cover opacity-80 group-hover:opacity-100 group-hover:scale-105 transition-all duration-700"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-gray-950 via-gray-950/20 to-transparent"></div>
+              </div>
+
+              {/* Content */}
+              <div className="p-5 flex flex-col flex-1">
+                <h3 className="text-sm font-semibold text-white mb-1 leading-tight">Virtual Keyboard & Mouse</h3>
+                <p className="text-gray-400 text-[11px] leading-relaxed font-sans mb-1">
+                  A touchless system that lets you type on a virtual AR keyboard and navigate your entire computer mid-air.<br />
+                  <span className="text-blue-400">Project Exhibition: Winner at first place 🥇</span>
+                </p>
+                <p className="text-purple-400/70 text-[10px] font-mono mb-4">
+                  Python · OpenCV · MediaPipe
+                </p>
+
+                {/* Links */}
+                <div className="flex gap-2.5 mt-auto">
+                  <a href="https://github.com/jayesh-cmd/virtual-keyboard" target="_blank" rel="noopener noreferrer"
+                    className="flex items-center gap-1.5 px-3 py-1.5 bg-white/8 hover:bg-white/15 border border-white/15 rounded-full transition-colors"
+                    title="GitHub">
+                    <svg viewBox="0 0 24 24" className="w-3 h-3 fill-white" xmlns="http://www.w3.org/2000/svg">
+                      <path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z" />
+                    </svg>
+                    <span className="text-white text-[10px] font-medium font-sans">Code</span>
+                  </a>
+                  <a href="https://www.instagram.com/reel/DW1WLDsEQDz/?utm_source=ig_web_copy_link" target="_blank" rel="noopener noreferrer"
+                    className="flex items-center gap-1.5 px-3 py-1.5 bg-white/8 hover:bg-white/15 border border-white/15 rounded-full transition-colors"
+                    title="Instagram Reel">
+                    <svg viewBox="0 0 24 24" className="w-3 h-3 fill-white" xmlns="http://www.w3.org/2000/svg">
+                      <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z" />
+                    </svg>
+                    <span className="text-white text-[10px] font-medium font-sans">Reel</span>
+                  </a>
+                </div>
+              </div>
+            </div>
+
+          </div>
+        </div>
+      </section>
+
+
       <section id="skills" className="py-32 px-6 bg-white relative z-10">
         <div className="container mx-auto max-w-4xl">
           <div className="text-center mb-16">

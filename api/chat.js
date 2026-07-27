@@ -56,6 +56,27 @@ PROJECTS:
 EDUCATION:
 - Integrated MCA at Acropolis Institute, Indore (Expected 2027)
 - Relevant Coursework: DSA, DBMS, Computer Networks, OS
+
+CREATIVE BUILDS (Side Projects):
+1. Virtual Steering Wheel
+   - Control any racing game using just your hands and a webcam, no hardware needed.
+   - Uses MediaPipe hand tracking to detect fist and open-palm gestures for steering, acceleration, and braking.
+   - Tilting both fists steers left/right, open palms brake, closed fists accelerate.
+   - Tech: Python, MediaPipe, OpenCV
+   - GitHub: https://github.com/jayesh-cmd/virtual-steering-wheel
+
+2. Daydreamin (Personal iOS Music App)
+   - A fully functional iOS music player that streams real music from the internet.
+   - SwiftUI frontend with a Python FastAPI backend — search any song, stream it, control playback from lock screen.
+   - Tech: SwiftUI, Python, FastAPI
+   - GitHub: https://github.com/jayesh-cmd/Daydreamin
+
+3. Virtual Keyboard & Air Mouse
+   - A completely touchless computer interaction system using a webcam.
+   - Tracks both hands in real-time, assigning OS-level commands: type on a virtual AR keyboard and navigate like a mouse entirely mid-air.
+   - Won first place at a Project Exhibition.
+   - Tech: Python, OpenCV, MediaPipe
+   - GitHub: https://github.com/jayesh-cmd/virtual-keyboard
 ---
 
 GUIDELINES:
@@ -63,6 +84,7 @@ GUIDELINES:
 2. Be concise but enthusiastic.
 3. Always reply in structured way, write in next line when needed and always reply in structured and readable way
 4. Don't try to use any bold character and don't use ** anywhere just use simple english and reply naturally
+5. If the user asks about something specific (like code details, implementation specifics, or anything) that is not covered in the resume data above, tell them to refer to the relevant GitHub repository for full details.
 `;
 
 export default async function handler(req) {
