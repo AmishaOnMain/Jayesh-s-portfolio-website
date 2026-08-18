@@ -102,10 +102,10 @@ export default async function handler(req) {
 
   if (req.method !== 'POST') {
     return new Response(
-      JSON.stringify({ error: { message: 'Method not allowed' } }), 
+      JSON.stringify({ error: { message: 'Method not allowed' } }),
       {
         status: 405,
-        headers: { 
+        headers: {
           'Content-Type': 'application/json',
           'Access-Control-Allow-Origin': '*',
         },
@@ -116,7 +116,7 @@ export default async function handler(req) {
   try {
     const { messages } = await req.json();
     const apiKey = process.env.GROQ_API_KEY;
-    
+
     if (!apiKey) {
       console.error('API Key missing');
       throw new Error('GROQ_API_KEY not configured');
@@ -144,7 +144,7 @@ export default async function handler(req) {
         'Authorization': `Bearer ${apiKey}`,
       },
       body: JSON.stringify({
-        model: 'llama-3.3-70b-versatile',
+        model: 'openai/gpt-oss-120b',
         messages: formattedMessages,
         temperature: 0.7,
         max_tokens: 800, // Reduced for faster response
@@ -160,7 +160,7 @@ export default async function handler(req) {
     if (!response.ok) {
       const errorText = await response.text();
       console.error('API Error:', errorText);
-      
+
       // Handle specific errors
       if (response.status === 429) {
         throw new Error('Rate limit exceeded. Please wait a moment and try again.');
@@ -168,7 +168,7 @@ export default async function handler(req) {
       if (response.status === 401) {
         throw new Error('Invalid API key. Please check configuration.');
       }
-      
+
       throw new Error(`API request failed: ${response.status}`);
     }
 
@@ -189,10 +189,10 @@ export default async function handler(req) {
 
   } catch (error) {
     console.error('Chat API Error:', error);
-    
+
     // Better error messages
     let errorMessage = 'Something went wrong. Please try again.';
-    
+
     if (error.name === 'AbortError') {
       errorMessage = 'Request timeout. Please try again.';
     } else if (error.message.includes('Rate limit')) {
