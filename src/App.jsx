@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect, useRef } from "react";
 import {
   Github,
   Linkedin,
@@ -28,8 +28,8 @@ import {
   Layers,
   Instagram,
   Youtube,
-  Menu
-} from 'lucide-react';
+  Menu,
+} from "lucide-react";
 
 // --- DATA: RESUME CONTEXT (The "Knowledge Base" for RAG) ---
 const RESUME_CONTEXT = `
@@ -120,22 +120,27 @@ GUIDELINES:
 const simulateRAGResponse = (query) => {
   const q = query.toLowerCase();
 
-  if (q.includes('hello') || q.includes('hi'))
+  if (q.includes("hello") || q.includes("hi"))
     return "Hey! I'm a RAG chatbot created by Jayesh for this portfolio. Ask me about his AI and backend projects! 🚀";
 
-  if (q.includes('who are you'))
+  if (q.includes("who are you"))
     return "I'm a RAG chatbot built by Jayesh and integrated here to showcase his Generative AI and backend engineering skills. 😎";
 
-  if (q.includes('python') || q.includes('langchain') || q.includes('skill'))
+  if (q.includes("python") || q.includes("langchain") || q.includes("skill"))
     return "Jayesh works with Python, LangChain, and FastAPI to build production-ready AI systems, including RAG pipelines and scalable backends.";
 
-  if (q.includes('project') || q.includes('foodpilot') || q.includes('fraud') || q.includes('insightlense'))
+  if (
+    q.includes("project") ||
+    q.includes("foodpilot") ||
+    q.includes("fraud") ||
+    q.includes("insightlense")
+  )
     return "His key projects include: 1) FoodPilot (AI food ordering concierge), 2) InsightLense (multimodal RAG for PDFs), and 3) a fraud detection API built on 6.3M+ transactions.";
 
-  if (q.includes('experience') || q.includes('work') || q.includes('intern'))
+  if (q.includes("experience") || q.includes("work") || q.includes("intern"))
     return "He worked as an AI/ML Software Developer Intern in Bangalore, where he built a WhatsApp-based AI sales agent using Gemini and FastAPI.";
 
-  if (q.includes('contact') || q.includes('email'))
+  if (q.includes("contact") || q.includes("email"))
     return "Reach him at jayeshvishwakarma6028@gmail.com — always open to AI and backend opportunities!";
 
   return "Interesting question! You can ask about his RAG pipelines, backend systems, or internship experience. 🤖";
@@ -143,19 +148,26 @@ const simulateRAGResponse = (query) => {
 
 // --- COMPONENTS ---
 
-const Button = ({ children, variant = 'primary', className = '', href, onClick }) => {
+const Button = ({
+  children,
+  variant = "primary",
+  className = "",
+  href,
+  onClick,
+}) => {
   const baseStyle =
     "px-6 py-3 rounded-full font-medium transition-all duration-300 flex items-center gap-2 justify-center cursor-pointer font-sans";
 
   const variants = {
     primary: "bg-black text-white hover:bg-gray-800 hover:scale-105 shadow-lg",
-    secondary: "bg-white text-black border border-gray-200 hover:bg-gray-50 hover:border-gray-400",
-    outline: "bg-transparent text-white border border-white/30 hover:bg-white/10",
+    secondary:
+      "bg-white text-black border border-gray-200 hover:bg-gray-50 hover:border-gray-400",
+    outline:
+      "bg-transparent text-white border border-white/30 hover:bg-white/10",
     ghost: "bg-transparent text-gray-600 hover:text-black hover:bg-gray-100",
-    darkOutline: "bg-gray-900 text-white border border-gray-700 hover:bg-black"
+    darkOutline: "bg-gray-900 text-white border border-gray-700 hover:bg-black",
   };
 
-  // 🔥 New-tab for all external links
   if (href) {
     return (
       <a
@@ -179,7 +191,6 @@ const Button = ({ children, variant = 'primary', className = '', href, onClick }
   );
 };
 
-
 const Orb = ({ color, size, top, left, blur = "blur-3xl", delay = "0s" }) => (
   <div
     className={`absolute rounded-full opacity-40 pointer-events-none mix-blend-multiply animate-float ${blur}`}
@@ -190,12 +201,20 @@ const Orb = ({ color, size, top, left, blur = "blur-3xl", delay = "0s" }) => (
       top: top,
       left: left,
       animationDelay: delay,
-      zIndex: 0
+      zIndex: 0,
     }}
   />
 );
 
-const OrbitLine = ({ width, height, top, left, rotate, opacity = 0.4, color = "#d1d5db" }) => (
+const OrbitLine = ({
+  width,
+  height,
+  top,
+  left,
+  rotate,
+  opacity = 0.4,
+  color = "#d1d5db",
+}) => (
   <div
     className="absolute rounded-[100%] border pointer-events-none"
     style={{
@@ -207,37 +226,9 @@ const OrbitLine = ({ width, height, top, left, rotate, opacity = 0.4, color = "#
       opacity: opacity,
       zIndex: 0,
       borderColor: color,
-      borderWidth: '1px'
+      borderWidth: "1px",
     }}
   />
-);
-
-const FeatureCard = ({ title, subtitle, description, tags = [], icon: Icon, imageGradient }) => (
-  <div className="group relative overflow-hidden rounded-3xl bg-white border border-gray-100 shadow-sm hover:shadow-xl transition-all duration-500 p-8 h-full flex flex-col">
-    <div className={`absolute top-0 right-0 w-64 h-64 bg-gradient-to-br ${imageGradient} opacity-10 rounded-full -mr-16 -mt-16 transition-transform group-hover:scale-150 duration-700`}></div>
-
-    <div className="mb-6 relative z-10">
-      <div className="w-12 h-12 rounded-2xl bg-gray-50 flex items-center justify-center mb-4 group-hover:bg-black group-hover:text-white transition-colors duration-300">
-        <Icon size={24} />
-      </div>
-      <h3 className="text-2xl font-serif font-medium text-gray-900 mb-1">{title}</h3>
-      <p className="text-sm font-medium text-gray-500 uppercase tracking-wider font-sans">{subtitle}</p>
-    </div>
-
-    <p className="text-gray-600 mb-6 relative z-10 leading-relaxed flex-grow font-sans">
-      {description}
-    </p>
-
-    {tags && tags.length > 0 && (
-      <div className="flex flex-wrap gap-2 mt-auto relative z-10">
-        {tags.map((tag, i) => (
-          <span key={i} className="px-3 py-1 bg-gray-100 text-gray-600 text-xs rounded-full font-sans">
-            {tag}
-          </span>
-        ))}
-      </div>
-    )}
-  </div>
 );
 
 const AccordionItem = ({ question, answer, isOpen, onClick }) => {
@@ -250,31 +241,51 @@ const AccordionItem = ({ question, answer, isOpen, onClick }) => {
         <span className="text-xl font-serif text-gray-800 group-hover:text-black transition-colors">
           {question}
         </span>
-        <span className={`ml-4 p-2 rounded-full transition-all duration-300 ${isOpen ? 'bg-black text-white rotate-180' : 'bg-gray-100 text-gray-500 group-hover:bg-gray-200'}`}>
+        <span
+          className={`ml-4 p-2 rounded-full transition-all duration-300 ${isOpen ? "bg-black text-white rotate-180" : "bg-gray-100 text-gray-500 group-hover:bg-gray-200"}`}
+        >
           <ChevronDown size={20} />
         </span>
       </button>
       <div
-        className={`overflow-hidden transition-all duration-500 ease-in-out ${isOpen ? 'max-h-96 opacity-100 pb-6' : 'max-h-0 opacity-0'}`}
+        className={`overflow-hidden transition-all duration-500 ease-in-out ${isOpen ? "max-h-96 opacity-100 pb-6" : "max-h-0 opacity-0"}`}
       >
-        <p className="text-gray-600 leading-relaxed font-sans">
-          {answer}
-        </p>
+        <p className="text-gray-600 leading-relaxed font-sans">{answer}</p>
       </div>
     </div>
   );
 };
 
-
 // Compact Project Card — small square/rect with bullet points and inline stats
-const CompactProjectCard = ({ title, role, bullets, stat, repoLink, demoLink, icon: Icon }) => (
-  <div className="relative overflow-hidden rounded-2xl border border-white/10 backdrop-blur-sm hover:border-white/25 transition-all duration-300 flex flex-col group" style={{ background: 'rgba(255,255,255,0.04)' }}>
-    <div className="p-5 flex flex-col flex-1">
+const CompactProjectCard = ({
+  title,
+  role,
+  bullets,
+  stat,
+  repoLink,
+  demoLink,
+  icon: Icon,
+  gradient,
+}) => (
+  <div
+    className="relative overflow-hidden rounded-2xl border border-white/10 backdrop-blur-sm hover:border-white/25 transition-all duration-300 flex flex-col group"
+    style={{ background: "rgba(255,255,255,0.04)" }}
+  >
+    {gradient && (
+      <div
+        className={`absolute top-0 right-0 w-32 h-32 bg-gradient-to-br ${gradient} opacity-10 rounded-full -mr-8 -mt-8 pointer-events-none`}
+      ></div>
+    )}
+    <div className="p-5 flex flex-col flex-1 relative z-10">
       {/* Header */}
       <div className="flex items-start justify-between mb-3">
         <div className="flex-1">
-          <h3 className="text-sm font-semibold text-white leading-tight mb-0.5">{title}</h3>
-          <span className="text-[10px] text-gray-400 font-medium tracking-wide font-sans uppercase">{role}</span>
+          <h3 className="text-sm font-semibold text-white leading-tight mb-0.5">
+            {title}
+          </h3>
+          <span className="text-[10px] text-gray-400 font-medium tracking-wide font-sans uppercase">
+            {role}
+          </span>
         </div>
         {Icon && <Icon size={16} className="text-white/30 mt-0.5 shrink-0" />}
       </div>
@@ -284,7 +295,9 @@ const CompactProjectCard = ({ title, role, bullets, stat, repoLink, demoLink, ic
         {bullets.map((b, i) => (
           <li key={i} className="flex items-start gap-1.5">
             <span className="text-gray-500 text-[10px] mt-0.5 shrink-0">▸</span>
-            <span className="text-gray-300 text-[11px] leading-relaxed font-sans">{b}</span>
+            <span className="text-gray-300 text-[11px] leading-relaxed font-sans">
+              {b}
+            </span>
           </li>
         ))}
       </ul>
@@ -301,14 +314,22 @@ const CompactProjectCard = ({ title, role, bullets, stat, repoLink, demoLink, ic
       {/* Links */}
       <div className="flex gap-2 mt-auto">
         {demoLink && (
-          <a href={demoLink} target="_blank" rel="noopener noreferrer"
-            className="flex items-center gap-1 px-2.5 py-1 bg-white text-black text-[10px] font-medium rounded-full hover:bg-gray-200 transition-colors font-sans">
+          <a
+            href={demoLink}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="flex items-center gap-1 px-2.5 py-1 bg-white text-black text-[10px] font-medium rounded-full hover:bg-gray-200 transition-colors font-sans"
+          >
             <PlayCircle size={10} /> Demo
           </a>
         )}
         {repoLink && (
-          <a href={repoLink} target="_blank" rel="noopener noreferrer"
-            className="flex items-center gap-1 px-2.5 py-1 bg-white/10 text-white text-[10px] font-medium rounded-full hover:bg-white/20 transition-colors border border-white/20 font-sans">
+          <a
+            href={repoLink}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="flex items-center gap-1 px-2.5 py-1 bg-white/10 text-white text-[10px] font-medium rounded-full hover:bg-white/20 transition-colors border border-white/20 font-sans"
+          >
             <Github size={10} /> Code
           </a>
         )}
@@ -320,15 +341,21 @@ const CompactProjectCard = ({ title, role, bullets, stat, repoLink, demoLink, ic
 // --- COMPACT EMBEDDED CHAT COMPONENT ---
 const CompactChat = () => {
   const [messages, setMessages] = useState([
-    { role: 'assistant', content: "Hey There 👋, I Am Jay's Assistant. Have A Chat!" }
+    {
+      role: "assistant",
+      content: "Hey There 👋, I Am Jay's Assistant. Have A Chat!",
+    },
   ]);
-  const [input, setInput] = useState('');
+  const [input, setInput] = useState("");
   const [isLoading, setIsLoading] = useState(false);
   const [userMessageCount, setUserMessageCount] = useState(0);
   const messagesEndRef = useRef(null);
 
   const scrollToBottom = () => {
-    messagesEndRef.current?.scrollIntoView({ behavior: "smooth", block: "nearest" });
+    messagesEndRef.current?.scrollIntoView({
+      behavior: "smooth",
+      block: "nearest",
+    });
   };
 
   useEffect(() => {
@@ -340,9 +367,10 @@ const CompactChat = () => {
   const handleSend = async () => {
     if (!input.trim()) return;
 
-    const userMessage = { role: 'user', content: input };
-    setMessages(prev => [...prev, userMessage]);
-    setInput('');
+    const userMessage = { role: "user", content: input };
+    setMessages((prev) => [...prev, userMessage]);
+    const currentInput = input;
+    setInput("");
     setIsLoading(true);
 
     const nextCount = userMessageCount + 1;
@@ -350,12 +378,13 @@ const CompactChat = () => {
 
     if (nextCount >= 10) {
       setTimeout(() => {
-        setMessages(prev => [
+        setMessages((prev) => [
           ...prev,
           {
             role: "assistant",
-            content: "You can contact me on LinkedIn - @cmd-jayesh ✨\nI've hit my message limit because I'm saving tokens for recruiters 😅"
-          }
+            content:
+              "You can contact me on LinkedIn - @cmd-jayesh ✨\nI've hit my message limit because I'm saving tokens for recruiters 😅",
+          },
         ]);
         setIsLoading(false);
       }, 600);
@@ -364,33 +393,50 @@ const CompactChat = () => {
 
     try {
       const history = messages.slice(-5);
-      const response = await fetch('/api/chat', {
+      const response = await fetch("/api/chat", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ messages: [...history, userMessage] })
+        body: JSON.stringify({ messages: [...history, userMessage] }),
       });
-      if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
+      if (!response.ok)
+        throw new Error(`HTTP error! status: ${response.status}`);
       const data = await response.json();
       if (data.error) throw new Error(data.error.message);
-      setMessages(prev => [...prev, { role: 'assistant', content: data.choices[0].message.content }]);
-    } catch (error) {
-      console.error('Chat error:', error);
-      setMessages(prev => [...prev, {
-        role: 'assistant',
-        content: "Oops! Something went wrong. Contact me on LinkedIn - @cmd-jayesh 😊"
-      }]);
+      setMessages((prev) => [
+        ...prev,
+        { role: "assistant", content: data.choices[0].message.content },
+      ]);
+    } catch {
+      console.warn(
+        "Chat API unavailable or failed. Using RAG simulator fallback.",
+      );
+      const simulatedReply = simulateRAGResponse(currentInput);
+      setMessages((prev) => [
+        ...prev,
+        {
+          role: "assistant",
+          content: simulatedReply,
+        },
+      ]);
     } finally {
       setIsLoading(false);
     }
   };
 
   return (
-    <div className="rounded-2xl bg-gray-900 border border-gray-800 shadow-xl overflow-hidden flex flex-col relative font-sans" style={{ height: '420px' }}>
+    <div
+      className="rounded-2xl bg-gray-900 border border-gray-800 shadow-xl overflow-hidden flex flex-col relative font-sans"
+      style={{ height: "420px" }}
+    >
       {/* Subtle background */}
-      <div className="absolute inset-0 z-0" style={{
-        backgroundImage: `url('/4M3Rmtye1aP2adi4PMKLsoYPxQ.jpg')`,
-        backgroundSize: 'cover', backgroundPosition: 'center'
-      }}>
+      <div
+        className="absolute inset-0 z-0"
+        style={{
+          backgroundImage: `url('/4M3Rmtye1aP2adi4PMKLsoYPxQ.jpg')`,
+          backgroundSize: "cover",
+          backgroundPosition: "center",
+        }}
+      >
         <div className="absolute inset-0 bg-gray-950/75"></div>
       </div>
 
@@ -404,22 +450,30 @@ const CompactChat = () => {
         <div className="flex-1 bg-gray-800 h-5 rounded border border-gray-700 flex items-center px-2 text-[9px] text-gray-400 font-mono">
           <span className="text-blue-400 mr-1">ai://</span>jayesh-bot
         </div>
-        <div className="text-[9px] text-gray-500 font-mono">{userMessageCount}/10</div>
+        <div className="text-[9px] text-gray-500 font-mono">
+          {userMessageCount}/10
+        </div>
       </div>
 
       {/* Messages */}
       <div className="flex-1 overflow-y-auto px-3 py-2 space-y-2 custom-scrollbar relative z-10">
         {messages.map((msg, index) => (
-          <div key={index} className={`flex ${msg.role === 'user' ? 'justify-end' : 'justify-start'} animate-fade-in-up`}>
-            {msg.role === 'assistant' && (
+          <div
+            key={index}
+            className={`flex ${msg.role === "user" ? "justify-end" : "justify-start"} animate-fade-in-up`}
+          >
+            {msg.role === "assistant" && (
               <div className="w-5 h-5 rounded-full bg-white/10 flex items-center justify-center mr-1.5 mt-0.5 shrink-0 border border-white/10">
                 <Bot size={10} className="text-blue-300" />
               </div>
             )}
-            <div className={`max-w-[85%] px-2.5 py-1.5 rounded-xl text-[11px] leading-relaxed backdrop-blur-md shadow-lg font-sans whitespace-pre-wrap ${msg.role === 'user'
-              ? 'bg-blue-600/90 text-white rounded-br-none border border-blue-400/30'
-              : 'bg-white/10 text-white/90 rounded-bl-none border border-white/10'
-              }`}>
+            <div
+              className={`max-w-[85%] px-2.5 py-1.5 rounded-xl text-[11px] leading-relaxed backdrop-blur-md shadow-lg font-sans whitespace-pre-wrap ${
+                msg.role === "user"
+                  ? "bg-blue-600/90 text-white rounded-br-none border border-blue-400/30"
+                  : "bg-white/10 text-white/90 rounded-bl-none border border-white/10"
+              }`}
+            >
               {msg.content}
             </div>
           </div>
@@ -446,8 +500,10 @@ const CompactChat = () => {
             type="text"
             value={input}
             onChange={(e) => setInput(e.target.value)}
-            onKeyPress={(e) => e.key === 'Enter' && handleSend()}
-            placeholder={userMessageCount >= 10 ? "Limit reached." : "Ask me anything..."}
+            onKeyPress={(e) => e.key === "Enter" && handleSend()}
+            placeholder={
+              userMessageCount >= 10 ? "Limit reached." : "Ask me anything..."
+            }
             disabled={isLoading || userMessageCount >= 10}
             className="flex-1 bg-white/5 border border-white/10 rounded-lg px-3 py-1.5 text-white text-[11px] focus:outline-none focus:border-blue-500/50 focus:bg-white/10 transition-all placeholder:text-gray-500 font-sans disabled:opacity-50 disabled:cursor-not-allowed"
           />
@@ -468,13 +524,11 @@ const CompactChat = () => {
 const useTypingCursor = () => {
   const [visible, setVisible] = useState(true);
   useEffect(() => {
-    const interval = setInterval(() => setVisible(v => !v), 530);
+    const interval = setInterval(() => setVisible((v) => !v), 530);
     return () => clearInterval(interval);
   }, []);
   return visible;
 };
-
-
 
 // --- EXPERIENCE DATA ---
 const EXPERIENCES = [
@@ -488,8 +542,8 @@ const EXPERIENCES = [
       "Built an AI-powered B2B sales agent using Gemini API integrated with WhatsApp Business API for end-to-end order conversations.",
       "Implemented multi-tenant PostgreSQL system with Row-Level Security for strict data isolation.",
       "Designed async webhook handling using FastAPI and ThreadPoolExecutor with sub-2s response time.",
-      "Improved system stability through automated testing and validation pipelines."
-    ]
+      "Improved system stability through automated testing and validation pipelines.",
+    ],
   },
   {
     tabLabel: "Education (MCA)",
@@ -500,14 +554,14 @@ const EXPERIENCES = [
     bullets: [
       "Integrated Master of Computer Applications (MCA) program.",
       "Focused on core CS: Data Structures, Algorithms, OOPs, DBMS, Operating Systems.",
-      "Hands-on DSA: solved 150+ problems on LeetCode & other platforms."
-    ]
-  }
+      "Hands-on DSA: solved 150+ problems on LeetCode & other platforms.",
+    ],
+  },
 ];
 
 // --- SNAKE GAME OVERLAY MODE ---
 
-const SnakeGameMode = ({ gameActive, setGameActive, score, setScore }) => {
+const SnakeGameMode = ({ gameActive, score, setScore }) => {
   const [modalState, setModalState] = useState(null); // 'win' | 'lose' | null
 
   const canvasRef = useRef(null);
@@ -516,7 +570,7 @@ const SnakeGameMode = ({ gameActive, setGameActive, score, setScore }) => {
     scoreRef.current = score;
   }, [score]);
 
-  const gameStateRef = useRef('idle'); // 'playing' | 'lost' | 'won' | 'idle'
+  const gameStateRef = useRef("idle"); // 'playing' | 'lost' | 'won' | 'idle'
   const snakeRef = useRef([]);
   const directionRef = useRef({ x: 0, y: 0 });
   const nextDirectionRef = useRef({ x: 0, y: 0 });
@@ -549,13 +603,19 @@ const SnakeGameMode = ({ gameActive, setGameActive, score, setScore }) => {
   };
 
   const getObstacleRects = () => {
-    const elements = document.querySelectorAll('h1, h2, h3, p, span, li, a, img, button');
+    const elements = document.querySelectorAll(
+      "h1, h2, h3, p, span, li, a, img, button",
+    );
     const rects = [];
     elements.forEach((el) => {
-      if (el.closest('.game-ui')) return;
+      if (el.closest(".game-ui")) return;
       const rect = el.getBoundingClientRect();
-      // Only treat elements visible in the viewport as obstacles
-      if (rect.width > 5 && rect.height > 5 && rect.top < window.innerHeight && rect.left < window.innerWidth) {
+      if (
+        rect.width > 5 &&
+        rect.height > 5 &&
+        rect.top < window.innerHeight &&
+        rect.left < window.innerWidth
+      ) {
         rects.push({
           x: rect.left,
           y: rect.top,
@@ -567,16 +627,19 @@ const SnakeGameMode = ({ gameActive, setGameActive, score, setScore }) => {
     return rects;
   };
 
-  const findSafeStartingPoint = (canvasWidth, canvasHeight, obstacleRects, gridSize) => {
+  const findSafeStartingPoint = (
+    canvasWidth,
+    canvasHeight,
+    obstacleRects,
+    gridSize,
+  ) => {
     const cols = Math.floor(canvasWidth / gridSize);
     const rows = Math.floor(canvasHeight / gridSize);
 
-    // Scan from top-left, but skip outer edges
     for (let r = 5; r < rows - 5; r++) {
       for (let c = 5; c < cols - 5; c++) {
         const x = c * gridSize;
         const y = r * gridSize;
-        // Test a 3x1 block for starting snake
         const rect = { x, y, width: gridSize * 3, height: gridSize };
 
         let overlaps = false;
@@ -591,13 +654,13 @@ const SnakeGameMode = ({ gameActive, setGameActive, score, setScore }) => {
         }
       }
     }
-    return { x: gridSize * 5, y: gridSize * 5 }; // Fallback
+    return { x: gridSize * 5, y: gridSize * 5 };
   };
 
   const spawnEgg = (canvasWidth, canvasHeight, obstacleRects, gridSize) => {
     const cols = Math.floor(canvasWidth / gridSize);
     const rows = Math.floor(canvasHeight / gridSize);
-    let margin = gridSize * 2.5; // Start with a safe 50px buffer zone
+    let margin = gridSize * 2.5;
     let attempts = 0;
 
     while (attempts < 1000) {
@@ -609,7 +672,6 @@ const SnakeGameMode = ({ gameActive, setGameActive, score, setScore }) => {
 
       let overlaps = false;
 
-      // Check collision with obstacles including the buffer zone
       for (const obs of obstacleRects) {
         if (intersectsWithMargin(eggRect, obs, margin)) {
           overlaps = true;
@@ -617,7 +679,6 @@ const SnakeGameMode = ({ gameActive, setGameActive, score, setScore }) => {
         }
       }
 
-      // Check collision with snake
       if (!overlaps) {
         for (const segment of snakeRef.current) {
           if (segment.x === x && segment.y === y) {
@@ -632,12 +693,11 @@ const SnakeGameMode = ({ gameActive, setGameActive, score, setScore }) => {
       }
 
       attempts++;
-      // Dynamically shrink buffer if we struggle to find space
       if (attempts === 200) margin = gridSize * 1.5;
       if (attempts === 500) margin = gridSize;
       if (attempts === 800) margin = 0;
     }
-    return { x: gridSize * 8, y: gridSize * 8 }; // Fallback
+    return { x: gridSize * 8, y: gridSize * 8 };
   };
 
   const startGame = () => {
@@ -661,20 +721,20 @@ const SnakeGameMode = ({ gameActive, setGameActive, score, setScore }) => {
     scoreRef.current = 0;
     setScore(0);
     setModalState(null);
-    gameStateRef.current = 'playing';
+    gameStateRef.current = "playing";
 
     eggRef.current = spawnEgg(width, height, rects, gridSize);
     lastUpdateTimeRef.current = 0;
   };
 
   const gameOver = () => {
-    gameStateRef.current = 'lost';
-    setModalState('lose');
+    gameStateRef.current = "lost";
+    setModalState("lose");
   };
 
   const gameWin = () => {
-    gameStateRef.current = 'won';
-    setModalState('win');
+    gameStateRef.current = "won";
+    setModalState("win");
   };
 
   const checkEdgeCollision = (head, canvasWidth, canvasHeight, gridSize) => {
@@ -696,7 +756,12 @@ const SnakeGameMode = ({ gameActive, setGameActive, score, setScore }) => {
   };
 
   const checkObstacleCollision = (head, obstacleRects, gridSize) => {
-    const headRect = { x: head.x, y: head.y, width: gridSize, height: gridSize };
+    const headRect = {
+      x: head.x,
+      y: head.y,
+      width: gridSize,
+      height: gridSize,
+    };
     for (const obs of obstacleRects) {
       if (intersects(headRect, obs)) {
         return true;
@@ -706,7 +771,7 @@ const SnakeGameMode = ({ gameActive, setGameActive, score, setScore }) => {
   };
 
   const updateSnake = () => {
-    if (gameStateRef.current !== 'playing') return;
+    if (gameStateRef.current !== "playing") return;
 
     directionRef.current = nextDirectionRef.current;
     const dir = directionRef.current;
@@ -731,8 +796,18 @@ const SnakeGameMode = ({ gameActive, setGameActive, score, setScore }) => {
 
     snake.unshift(head);
 
-    const headRect = { x: head.x, y: head.y, width: gridSize, height: gridSize };
-    const eggRect = { x: eggRef.current.x, y: eggRef.current.y, width: gridSize, height: gridSize };
+    const headRect = {
+      x: head.x,
+      y: head.y,
+      width: gridSize,
+      height: gridSize,
+    };
+    const eggRect = {
+      x: eggRef.current.x,
+      y: eggRef.current.y,
+      width: gridSize,
+      height: gridSize,
+    };
 
     if (intersects(headRect, eggRect)) {
       const nextScore = scoreRef.current + 1;
@@ -744,8 +819,13 @@ const SnakeGameMode = ({ gameActive, setGameActive, score, setScore }) => {
         return;
       }
 
-      growPendingRef.current += 4; // Add 4 segments for exaggerated growth
-      eggRef.current = spawnEgg(width, height, obstacleRectsRef.current, gridSize);
+      growPendingRef.current += 4;
+      eggRef.current = spawnEgg(
+        width,
+        height,
+        obstacleRectsRef.current,
+        gridSize,
+      );
     } else {
       if (growPendingRef.current > 0) {
         growPendingRef.current--;
@@ -759,7 +839,12 @@ const SnakeGameMode = ({ gameActive, setGameActive, score, setScore }) => {
     const pixelSize = size / 8;
     const drawPixel = (px, py, color) => {
       ctx.fillStyle = color;
-      ctx.fillRect(x + px * pixelSize, y + py * pixelSize + bobOffset, pixelSize, pixelSize);
+      ctx.fillRect(
+        x + px * pixelSize,
+        y + py * pixelSize + bobOffset,
+        pixelSize,
+        pixelSize,
+      );
     };
 
     const eggPattern = [
@@ -770,18 +855,18 @@ const SnakeGameMode = ({ gameActive, setGameActive, score, setScore }) => {
       [1, 2, 2, 2, 2, 2, 2, 1],
       [1, 2, 2, 2, 2, 2, 2, 1],
       [0, 1, 2, 2, 2, 2, 1, 0],
-      [0, 0, 1, 1, 1, 1, 0, 0]
+      [0, 0, 1, 1, 1, 1, 0, 0],
     ];
 
     for (let r = 0; r < 8; r++) {
       for (let c = 0; c < 8; c++) {
         if (eggPattern[r][c] === 1) {
-          drawPixel(c, r, '#3f3f3f'); // shell border
+          drawPixel(c, r, "#3f3f3f");
         } else if (eggPattern[r][c] === 2) {
           if (c < 4 && r < 4) {
-            drawPixel(c, r, '#ffeedd'); // bright highlights
+            drawPixel(c, r, "#ffeedd");
           } else {
-            drawPixel(c, r, '#e2cbbb'); // base egg color
+            drawPixel(c, r, "#e2cbbb");
           }
         }
       }
@@ -794,18 +879,24 @@ const SnakeGameMode = ({ gameActive, setGameActive, score, setScore }) => {
 
     const drawPixel = (px, py, color) => {
       ctx.fillStyle = color;
-      ctx.fillRect(x + px * pixelSize, y + py * pixelSize, pixelSize, pixelSize);
+      ctx.fillRect(
+        x + px * pixelSize,
+        y + py * pixelSize,
+        pixelSize,
+        pixelSize,
+      );
     };
 
-    const green = '#10b981';
-    const darkGreen = '#047857';
-    const yellowGreen = '#34d399';
-    const red = '#ef4444';
-    const black = '#000000';
-    const white = '#ffffff';
+    const green = "#10b981";
+    const darkGreen = "#047857";
+    const yellowGreen = "#34d399";
+    const red = "#ef4444";
+    const black = "#000000";
+    const white = "#ffffff";
 
     if (index === 0) {
-      const heading = dx > 0 ? 'right' : dx < 0 ? 'left' : dy > 0 ? 'down' : 'up';
+      const heading =
+        dx > 0 ? "right" : dx < 0 ? "left" : dy > 0 ? "down" : "up";
       const headPattern = {
         up: [
           [0, 1, 1, 1, 1, 1, 1, 0],
@@ -815,7 +906,7 @@ const SnakeGameMode = ({ gameActive, setGameActive, score, setScore }) => {
           [1, 2, 5, 2, 2, 5, 2, 1],
           [1, 5, 2, 2, 5, 2, 5, 1],
           [1, 2, 2, 2, 2, 2, 2, 1],
-          [0, 1, 1, 1, 1, 1, 1, 0]
+          [0, 1, 1, 1, 1, 1, 1, 0],
         ],
         down: [
           [0, 1, 1, 1, 1, 1, 1, 0],
@@ -825,7 +916,7 @@ const SnakeGameMode = ({ gameActive, setGameActive, score, setScore }) => {
           [1, 2, 2, 2, 2, 2, 2, 1],
           [1, 3, 4, 2, 2, 3, 4, 1],
           [1, 2, 2, 2, 2, 2, 2, 1],
-          [0, 1, 1, 1, 1, 1, 1, 0]
+          [0, 1, 1, 1, 1, 1, 1, 0],
         ],
         left: [
           [0, 1, 1, 1, 1, 1, 1, 0],
@@ -835,7 +926,7 @@ const SnakeGameMode = ({ gameActive, setGameActive, score, setScore }) => {
           [1, 2, 2, 5, 2, 2, 2, 1],
           [1, 2, 4, 2, 5, 2, 5, 1],
           [1, 2, 3, 2, 2, 5, 2, 1],
-          [0, 1, 1, 1, 1, 1, 1, 0]
+          [0, 1, 1, 1, 1, 1, 1, 0],
         ],
         right: [
           [0, 1, 1, 1, 1, 1, 1, 0],
@@ -845,8 +936,8 @@ const SnakeGameMode = ({ gameActive, setGameActive, score, setScore }) => {
           [1, 2, 2, 2, 5, 2, 2, 1],
           [1, 5, 2, 5, 2, 4, 2, 1],
           [1, 2, 5, 2, 2, 3, 2, 1],
-          [0, 1, 1, 1, 1, 1, 1, 0]
-        ]
+          [0, 1, 1, 1, 1, 1, 1, 0],
+        ],
       };
       const pattern = headPattern[heading] || headPattern.right;
       for (let r = 0; r < 8; r++) {
@@ -861,22 +952,62 @@ const SnakeGameMode = ({ gameActive, setGameActive, score, setScore }) => {
       }
       const showTongue = Math.floor(timestamp / 200) % 2 === 0;
       if (showTongue) {
-        if (heading === 'up') {
+        if (heading === "up") {
           ctx.fillStyle = red;
-          ctx.fillRect(x + 3.5 * pixelSize, y - 2 * pixelSize, 1 * pixelSize, 2 * pixelSize);
-          ctx.fillRect(x + 3 * pixelSize, y - 3 * pixelSize, 2 * pixelSize, 1 * pixelSize);
-        } else if (heading === 'down') {
+          ctx.fillRect(
+            x + 3.5 * pixelSize,
+            y - 2 * pixelSize,
+            1 * pixelSize,
+            2 * pixelSize,
+          );
+          ctx.fillRect(
+            x + 3 * pixelSize,
+            y - 3 * pixelSize,
+            2 * pixelSize,
+            1 * pixelSize,
+          );
+        } else if (heading === "down") {
           ctx.fillStyle = red;
-          ctx.fillRect(x + 3.5 * pixelSize, y + 8 * pixelSize, 1 * pixelSize, 2 * pixelSize);
-          ctx.fillRect(x + 3 * pixelSize, y + 9 * pixelSize, 2 * pixelSize, 1 * pixelSize);
-        } else if (heading === 'left') {
+          ctx.fillRect(
+            x + 3.5 * pixelSize,
+            y + 8 * pixelSize,
+            1 * pixelSize,
+            2 * pixelSize,
+          );
+          ctx.fillRect(
+            x + 3 * pixelSize,
+            y + 9 * pixelSize,
+            2 * pixelSize,
+            1 * pixelSize,
+          );
+        } else if (heading === "left") {
           ctx.fillStyle = red;
-          ctx.fillRect(x - 2 * pixelSize, y + 3.5 * pixelSize, 2 * pixelSize, 1 * pixelSize);
-          ctx.fillRect(x - 3 * pixelSize, y + 3 * pixelSize, 1 * pixelSize, 2 * pixelSize);
-        } else if (heading === 'right') {
+          ctx.fillRect(
+            x - 2 * pixelSize,
+            y + 3.5 * pixelSize,
+            2 * pixelSize,
+            1 * pixelSize,
+          );
+          ctx.fillRect(
+            x - 3 * pixelSize,
+            y + 3 * pixelSize,
+            1 * pixelSize,
+            2 * pixelSize,
+          );
+        } else if (heading === "right") {
           ctx.fillStyle = red;
-          ctx.fillRect(x + 8 * pixelSize, y + 3.5 * pixelSize, 2 * pixelSize, 1 * pixelSize);
-          ctx.fillRect(x + 9 * pixelSize, y + 3 * pixelSize, 1 * pixelSize, 2 * pixelSize);
+          ctx.fillRect(
+            x + 8 * pixelSize,
+            y + 3.5 * pixelSize,
+            2 * pixelSize,
+            1 * pixelSize,
+          );
+          ctx.fillRect(
+            x + 9 * pixelSize,
+            y + 3 * pixelSize,
+            1 * pixelSize,
+            2 * pixelSize,
+          );
         }
       }
     } else if (isTail) {
@@ -888,7 +1019,7 @@ const SnakeGameMode = ({ gameActive, setGameActive, score, setScore }) => {
         [0, 0, 1, 2, 2, 1, 0, 0],
         [0, 0, 0, 1, 1, 0, 0, 0],
         [0, 0, 0, 0, 0, 0, 0, 0],
-        [0, 0, 0, 0, 0, 0, 0, 0]
+        [0, 0, 0, 0, 0, 0, 0, 0],
       ];
       for (let r = 0; r < 8; r++) {
         for (let c = 0; c < 8; c++) {
@@ -900,25 +1031,27 @@ const SnakeGameMode = ({ gameActive, setGameActive, score, setScore }) => {
       }
     } else {
       const patternStyle = index % 2 === 0;
-      const bodyPattern = patternStyle ? [
-        [0, 1, 1, 1, 1, 1, 1, 0],
-        [1, 2, 2, 5, 2, 2, 2, 1],
-        [1, 2, 5, 2, 5, 2, 2, 1],
-        [1, 5, 2, 2, 2, 5, 2, 1],
-        [1, 2, 2, 2, 5, 2, 5, 1],
-        [1, 2, 2, 5, 2, 2, 2, 1],
-        [1, 2, 2, 2, 2, 2, 2, 1],
-        [0, 1, 1, 1, 1, 1, 1, 0]
-      ] : [
-        [0, 1, 1, 1, 1, 1, 1, 0],
-        [1, 2, 2, 2, 2, 2, 2, 1],
-        [1, 2, 2, 2, 5, 2, 5, 1],
-        [1, 2, 2, 5, 2, 2, 2, 1],
-        [1, 5, 2, 2, 2, 5, 2, 1],
-        [1, 2, 5, 2, 5, 2, 2, 1],
-        [1, 2, 2, 5, 2, 2, 2, 1],
-        [0, 1, 1, 1, 1, 1, 1, 0]
-      ];
+      const bodyPattern = patternStyle
+        ? [
+            [0, 1, 1, 1, 1, 1, 1, 0],
+            [1, 2, 2, 5, 2, 2, 2, 1],
+            [1, 2, 5, 2, 5, 2, 2, 1],
+            [1, 5, 2, 2, 2, 5, 2, 1],
+            [1, 2, 2, 2, 5, 2, 5, 1],
+            [1, 2, 2, 5, 2, 2, 2, 1],
+            [1, 2, 2, 2, 2, 2, 2, 1],
+            [0, 1, 1, 1, 1, 1, 1, 0],
+          ]
+        : [
+            [0, 1, 1, 1, 1, 1, 1, 0],
+            [1, 2, 2, 2, 2, 2, 2, 1],
+            [1, 2, 2, 2, 5, 2, 5, 1],
+            [1, 2, 2, 5, 2, 2, 2, 1],
+            [1, 5, 2, 2, 2, 5, 2, 1],
+            [1, 2, 5, 2, 5, 2, 2, 1],
+            [1, 2, 2, 5, 2, 2, 2, 1],
+            [0, 1, 1, 1, 1, 1, 1, 0],
+          ];
       for (let r = 0; r < 8; r++) {
         for (let c = 0; c < 8; c++) {
           const val = bodyPattern[r][c];
@@ -958,15 +1091,24 @@ const SnakeGameMode = ({ gameActive, setGameActive, score, setScore }) => {
       }
 
       const isTail = index === segments.length - 1;
-      drawSnakeSegment(ctx, seg.x + offsetX, seg.y + offsetY, index, dx, dy, timestamp, isTail);
+      drawSnakeSegment(
+        ctx,
+        seg.x + offsetX,
+        seg.y + offsetY,
+        index,
+        dx,
+        dy,
+        timestamp,
+        isTail,
+      );
     });
   };
 
   const drawObstacles = (ctx, rects) => {
     ctx.save();
-    ctx.strokeStyle = 'rgba(239, 68, 68, 0.15)';
+    ctx.strokeStyle = "rgba(239, 68, 68, 0.15)";
     ctx.lineWidth = 1;
-    ctx.fillStyle = 'rgba(239, 68, 68, 0.02)';
+    ctx.fillStyle = "rgba(239, 68, 68, 0.02)";
     rects.forEach((rect) => {
       ctx.fillRect(rect.x, rect.y, rect.width, rect.height);
       ctx.strokeRect(rect.x, rect.y, rect.width, rect.height);
@@ -976,19 +1118,34 @@ const SnakeGameMode = ({ gameActive, setGameActive, score, setScore }) => {
 
   // Scroll lock effect
   useEffect(() => {
+    const resetBodyOverflow = () => {
+      document.body.style.overflow = "";
+    };
+
     if (gameActive) {
-      document.body.style.overflow = 'hidden';
-      startGame();
-    } else {
-      document.body.style.overflow = '';
-      setModalState(null);
-      gameStateRef.current = 'idle';
-      if (animationFrameIdRef.current) {
-        cancelAnimationFrame(animationFrameIdRef.current);
-      }
+      document.body.style.overflow = "hidden";
+      const startId = window.requestAnimationFrame(() => {
+        startGame();
+      });
+
+      return () => {
+        resetBodyOverflow();
+        cancelAnimationFrame(startId);
+      };
     }
+
+    resetBodyOverflow();
+    const resetModalId = window.requestAnimationFrame(() => {
+      setModalState(null);
+    });
+    gameStateRef.current = "idle";
+    if (animationFrameIdRef.current) {
+      cancelAnimationFrame(animationFrameIdRef.current);
+    }
+
     return () => {
-      document.body.style.overflow = '';
+      resetBodyOverflow();
+      cancelAnimationFrame(resetModalId);
     };
   }, [gameActive]);
 
@@ -997,28 +1154,28 @@ const SnakeGameMode = ({ gameActive, setGameActive, score, setScore }) => {
     if (!gameActive) return;
 
     const handleKeyDown = (e) => {
-      if (gameStateRef.current !== 'playing') return;
+      if (gameStateRef.current !== "playing") return;
 
       let newDir = null;
       switch (e.key) {
-        case 'ArrowUp':
-        case 'w':
-        case 'W':
+        case "ArrowUp":
+        case "w":
+        case "W":
           if (directionRef.current.y === 0) newDir = { x: 0, y: -gridSize };
           break;
-        case 'ArrowDown':
-        case 's':
-        case 'S':
+        case "ArrowDown":
+        case "s":
+        case "S":
           if (directionRef.current.y === 0) newDir = { x: 0, y: gridSize };
           break;
-        case 'ArrowLeft':
-        case 'a':
-        case 'A':
+        case "ArrowLeft":
+        case "a":
+        case "A":
           if (directionRef.current.x === 0) newDir = { x: -gridSize, y: 0 };
           break;
-        case 'ArrowRight':
-        case 'd':
-        case 'D':
+        case "ArrowRight":
+        case "d":
+        case "D":
           if (directionRef.current.x === 0) newDir = { x: gridSize, y: 0 };
           break;
       }
@@ -1029,8 +1186,8 @@ const SnakeGameMode = ({ gameActive, setGameActive, score, setScore }) => {
       }
     };
 
-    window.addEventListener('keydown', handleKeyDown);
-    return () => window.removeEventListener('keydown', handleKeyDown);
+    window.addEventListener("keydown", handleKeyDown);
+    return () => window.removeEventListener("keydown", handleKeyDown);
   }, [gameActive]);
 
   // Main rendering loop
@@ -1042,15 +1199,21 @@ const SnakeGameMode = ({ gameActive, setGameActive, score, setScore }) => {
 
     canvas.width = window.innerWidth;
     canvas.height = window.innerHeight;
-    const ctx = canvas.getContext('2d');
+    const ctx = canvas.getContext("2d");
 
     const loop = (timestamp) => {
-      if (gameStateRef.current !== 'playing') {
+      if (gameStateRef.current !== "playing") {
         ctx.clearRect(0, 0, canvas.width, canvas.height);
         drawObstacles(ctx, obstacleRectsRef.current);
         drawSnake(ctx, snakeRef.current, gridSize, timestamp);
         const bob = Math.sin(timestamp * 0.005) * 4;
-        drawPixelatedEgg(ctx, eggRef.current.x, eggRef.current.y, gridSize, bob);
+        drawPixelatedEgg(
+          ctx,
+          eggRef.current.x,
+          eggRef.current.y,
+          gridSize,
+          bob,
+        );
         animationFrameIdRef.current = requestAnimationFrame(loop);
         return;
       }
@@ -1087,13 +1250,13 @@ const SnakeGameMode = ({ gameActive, setGameActive, score, setScore }) => {
       if (canvasRef.current) {
         canvasRef.current.width = window.innerWidth;
         canvasRef.current.height = window.innerHeight;
-        if (gameActive && gameStateRef.current === 'playing') {
+        if (gameActive && gameStateRef.current === "playing") {
           obstacleRectsRef.current = getObstacleRects();
         }
       }
     };
-    window.addEventListener('resize', handleResize);
-    return () => window.removeEventListener('resize', handleResize);
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
   }, [gameActive]);
 
   return (
@@ -1103,10 +1266,10 @@ const SnakeGameMode = ({ gameActive, setGameActive, score, setScore }) => {
         <canvas
           ref={canvasRef}
           style={{
-            position: 'fixed',
+            position: "fixed",
             inset: 0,
             zIndex: 45,
-            pointerEvents: 'none',
+            pointerEvents: "none",
           }}
         />
       )}
@@ -1115,15 +1278,23 @@ const SnakeGameMode = ({ gameActive, setGameActive, score, setScore }) => {
       {modalState && (
         <div className="fixed inset-0 flex items-center justify-center z-50 pointer-events-none game-ui bg-black/25 backdrop-blur-sm">
           <div className="bg-white/95 border border-gray-200 rounded-2xl p-6 shadow-2xl max-w-xs w-full text-center pointer-events-auto animate-fade-in-up">
-            {modalState === 'win' ? (
+            {modalState === "win" ? (
               <>
-                <h3 className="text-xl font-serif text-emerald-600 mb-2 font-bold">🎉 Victory!</h3>
-                <p className="text-sm text-gray-500 font-sans mb-4">You slithered through and gathered all 5 eggs successfully!</p>
+                <h3 className="text-xl font-serif text-emerald-600 mb-2 font-bold">
+                  🎉 Victory!
+                </h3>
+                <p className="text-sm text-gray-500 font-sans mb-4">
+                  You slithered through and gathered all 5 eggs successfully!
+                </p>
               </>
             ) : (
               <>
-                <h3 className="text-xl font-serif text-red-600 mb-2 font-bold">💥 Game Over</h3>
-                <p className="text-sm text-gray-500 font-sans mb-4">Oops! You collided with a text block or edge.</p>
+                <h3 className="text-xl font-serif text-red-600 mb-2 font-bold">
+                  💥 Game Over
+                </h3>
+                <p className="text-sm text-gray-500 font-sans mb-4">
+                  Oops! You collided with a text block or edge.
+                </p>
               </>
             )}
             <button
@@ -1153,8 +1324,8 @@ export default function Portfolio() {
 
   useEffect(() => {
     const handleScroll = () => setScrolled(window.scrollY > 50);
-    window.addEventListener('scroll', handleScroll);
-    return () => window.removeEventListener('scroll', handleScroll);
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
   useEffect(() => {
@@ -1175,36 +1346,68 @@ export default function Portfolio() {
   };
 
   const scrollToSection = (id) => {
-    document.getElementById(id)?.scrollIntoView({ behavior: 'smooth' });
+    document.getElementById(id)?.scrollIntoView({ behavior: "smooth" });
   };
 
   return (
     <div className="min-h-screen bg-[#FAFAFA] text-gray-900 font-sans overflow-x-hidden selection:bg-black selection:text-white relative">
-
       {/* --- Background Orbital Lines --- */}
       <div className="absolute top-0 left-0 w-full h-[150vh] overflow-hidden pointer-events-none z-0">
-        <OrbitLine width="120vw" height="120vh" top="-50%" left="-10%" rotate="15deg" opacity={0.5} color="#FDBA74" />
-        <OrbitLine width="100vw" height="100vh" top="10%" left="20%" rotate="-10deg" opacity={0.4} color="#22D3EE" />
-        <OrbitLine width="80vw" height="80vh" top="40%" left="-20%" rotate="25deg" opacity={0.4} color="#A78BFA" />
+        <OrbitLine
+          width="120vw"
+          height="120vh"
+          top="-50%"
+          left="-10%"
+          rotate="15deg"
+          opacity={0.5}
+          color="#FDBA74"
+        />
+        <OrbitLine
+          width="100vw"
+          height="100vh"
+          top="10%"
+          left="20%"
+          rotate="-10deg"
+          opacity={0.4}
+          color="#22D3EE"
+        />
+        <OrbitLine
+          width="80vw"
+          height="80vh"
+          top="40%"
+          left="-20%"
+          rotate="25deg"
+          opacity={0.4}
+          color="#A78BFA"
+        />
       </div>
 
       {/* --- Navigation --- */}
-      <nav className={`fixed top-0 w-full z-40 transition-all duration-300 ${scrolled ? 'bg-white/80 backdrop-blur-md border-b border-gray-100 py-4' : 'bg-transparent py-6'}`}>
+      <nav
+        className={`fixed top-0 w-full z-40 transition-all duration-300 ${scrolled ? "bg-white/80 backdrop-blur-md border-b border-gray-100 py-4" : "bg-transparent py-6"}`}
+      >
         <div className="container mx-auto px-6 flex justify-between items-center">
           <div className="flex items-center gap-2">
-            <div className="w-8 h-8 bg-black rounded-full flex items-center justify-center text-white font-serif font-bold text-lg">J</div>
-            <span className="font-medium tracking-tight text-lg font-sans">Jayesh.</span>
+            <div className="w-8 h-8 bg-black rounded-full flex items-center justify-center text-white font-serif font-bold text-lg">
+              J
+            </div>
+            <span className="font-medium tracking-tight text-lg font-sans">
+              Jayesh.
+            </span>
 
             {/* Game mode toggle */}
             <button
               onClick={toggleGameMode}
               className="glass-ui ml-2.5 px-2 py-0.5 rounded-full text-[9px] font-semibold uppercase tracking-wider font-sans transition-all flex items-center gap-1 cursor-pointer shadow-sm"
             >
-              <span className={`w-1.5 h-1.5 rounded-full transition-all duration-300 ${gameActive
-                ? 'bg-emerald-400 shadow-[0_0_8px_#34d399] scale-110 animate-pulse'
-                : 'bg-emerald-950/60 border border-emerald-500/20'
-                }`}></span>
-              <span>Game Mode: {gameActive ? 'ON' : 'OFF'}</span>
+              <span
+                className={`w-1.5 h-1.5 rounded-full transition-all duration-300 ${
+                  gameActive
+                    ? "bg-emerald-400 shadow-[0_0_8px_#34d399] scale-110 animate-pulse"
+                    : "bg-emerald-950/60 border border-emerald-500/20"
+                }`}
+              ></span>
+              <span>Game Mode: {gameActive ? "ON" : "OFF"}</span>
             </button>
           </div>
 
@@ -1215,9 +1418,24 @@ export default function Portfolio() {
                 {score}/5
               </div>
             )}
-            <button onClick={() => scrollToSection('experience')} className="hover:text-black transition-colors">Experience</button>
-            <button onClick={() => scrollToSection('projects')} className="hover:text-black transition-colors">Projects</button>
-            <button onClick={() => scrollToSection('skills')} className="hover:text-black transition-colors">Skills</button>
+            <button
+              onClick={() => scrollToSection("experience")}
+              className="hover:text-black transition-colors"
+            >
+              Experience
+            </button>
+            <button
+              onClick={() => scrollToSection("projects")}
+              className="hover:text-black transition-colors"
+            >
+              Projects
+            </button>
+            <button
+              onClick={() => scrollToSection("skills")}
+              className="hover:text-black transition-colors"
+            >
+              Skills
+            </button>
           </div>
 
           {/* Mobile Menu Toggle Button */}
@@ -1239,21 +1457,29 @@ export default function Portfolio() {
       </nav>
 
       {/* Mobile Drawer (Slide from left) */}
-      <div className={`fixed inset-0 z-50 transition-all duration-300 ${mobileMenuOpen ? 'visible pointer-events-auto' : 'invisible pointer-events-none'}`}>
+      <div
+        className={`fixed inset-0 z-50 transition-all duration-300 ${mobileMenuOpen ? "visible pointer-events-auto" : "invisible pointer-events-none"}`}
+      >
         {/* Backdrop overlay */}
         <div
           onClick={() => setMobileMenuOpen(false)}
-          className={`absolute inset-0 bg-black/30 backdrop-blur-sm transition-opacity duration-300 ${mobileMenuOpen ? 'opacity-100' : 'opacity-0'}`}
+          className={`absolute inset-0 bg-black/30 backdrop-blur-sm transition-opacity duration-300 ${mobileMenuOpen ? "opacity-100" : "opacity-0"}`}
         />
 
         {/* Drawer content panel */}
-        <div className={`absolute top-0 left-0 bottom-0 w-[260px] bg-white/95 backdrop-blur-md border-r border-gray-100 shadow-2xl flex flex-col justify-between p-6 transition-transform duration-300 ease-out transform ${mobileMenuOpen ? 'translate-x-0' : '-translate-x-full'}`}>
+        <div
+          className={`absolute top-0 left-0 bottom-0 w-[260px] bg-white/95 backdrop-blur-md border-r border-gray-100 shadow-2xl flex flex-col justify-between p-6 transition-transform duration-300 ease-out transform ${mobileMenuOpen ? "translate-x-0" : "-translate-x-full"}`}
+        >
           <div>
             {/* Header branding & close button */}
             <div className="flex justify-between items-center mb-10">
               <div className="flex items-center gap-2">
-                <div className="w-7 h-7 bg-black rounded-full flex items-center justify-center text-white font-serif font-bold text-sm">J</div>
-                <span className="font-semibold tracking-tight text-base font-sans">Jayesh.</span>
+                <div className="w-7 h-7 bg-black rounded-full flex items-center justify-center text-white font-serif font-bold text-sm">
+                  J
+                </div>
+                <span className="font-semibold tracking-tight text-base font-sans">
+                  Jayesh.
+                </span>
               </div>
               <button
                 onClick={() => setMobileMenuOpen(false)}
@@ -1268,7 +1494,7 @@ export default function Portfolio() {
             <div className="flex flex-col gap-4 text-base font-medium font-sans">
               <button
                 onClick={() => {
-                  scrollToSection('experience');
+                  scrollToSection("experience");
                   setMobileMenuOpen(false);
                 }}
                 className="text-left py-2.5 px-4 rounded-2xl hover:bg-gray-50 text-gray-600 hover:text-black transition-colors"
@@ -1277,7 +1503,7 @@ export default function Portfolio() {
               </button>
               <button
                 onClick={() => {
-                  scrollToSection('projects');
+                  scrollToSection("projects");
                   setMobileMenuOpen(false);
                 }}
                 className="text-left py-2.5 px-4 rounded-2xl hover:bg-gray-50 text-gray-600 hover:text-black transition-colors"
@@ -1286,7 +1512,7 @@ export default function Portfolio() {
               </button>
               <button
                 onClick={() => {
-                  scrollToSection('skills');
+                  scrollToSection("skills");
                   setMobileMenuOpen(false);
                 }}
                 className="text-left py-2.5 px-4 rounded-2xl hover:bg-gray-50 text-gray-600 hover:text-black transition-colors"
@@ -1297,84 +1523,114 @@ export default function Portfolio() {
           </div>
 
           <div className="border-t border-gray-100 pt-6">
-            <p className="text-[10px] text-gray-400 font-sans text-center">© {new Date().getFullYear()} Jayesh Vishwakarma</p>
+            <p className="text-[10px] text-gray-400 font-sans text-center">
+              © {new Date().getFullYear()} Jayesh Vishwakarma
+            </p>
           </div>
         </div>
       </div>
 
       {/* --- Hero Section --- */}
       <header className="relative pt-40 pb-10 px-6">
-        <Orb color="#C4B5FD" size="400px" top="-100px" left="-100px" delay="0s" />
+        <Orb
+          color="#C4B5FD"
+          size="400px"
+          top="-100px"
+          left="-100px"
+          delay="0s"
+        />
         <Orb color="#FDBA74" size="300px" top="20%" left="80%" delay="2s" />
         <Orb color="#67E8F9" size="250px" top="60%" left="10%" delay="4s" />
 
         <div className="container mx-auto max-w-7xl relative z-10">
           <div className="max-w-4xl mb-16 mx-auto text-center">
-
             <h1 className="text-5xl md:text-6xl font-serif text-gray-900 mb-5 leading-tight tracking-tight flex items-center gap-2 flex-wrap justify-center">
               Hey,&nbsp;
-              <span style={{ color: '#6366f1' }}>Jayesh</span>
+              <span style={{ color: "#6366f1" }}>Jayesh</span>
               &nbsp;here
               <span
                 className="inline-block w-[3px] h-[1em] ml-1 align-middle rounded-sm"
                 style={{
-                  backgroundColor: '#6366f1',
+                  backgroundColor: "#6366f1",
                   opacity: cursorVisible ? 1 : 0,
-                  transition: 'opacity 0.1s',
-                  verticalAlign: 'middle',
+                  transition: "opacity 0.1s",
+                  verticalAlign: "middle",
                 }}
               />
             </h1>
 
             <p className="text-sm text-gray-500 mb-10 leading-relaxed font-sans max-w-2xl text-center mx-auto">
-              AI Application Developer specializing in Artificial Intelligence, Backend and Machine Learning and make strange little projects at the intersection of tech and art by night.
+              AI Application Developer specializing in Artificial Intelligence,
+              Backend and Machine Learning and make strange little projects at
+              the intersection of tech and art by night.
             </p>
 
             <div className="flex flex-col sm:flex-row gap-4 items-center justify-center">
               <Button href="mailto:jayeshvishwakarma6028@gmail.com">
                 <Mail size={18} /> Say Hi
               </Button>
-              <Button variant="ghost" href="https://github.com/jayesh-cmd" className="gap-2">
+              <Button
+                variant="ghost"
+                href="https://github.com/jayesh-cmd"
+                className="gap-2"
+              >
                 <Github size={18} /> GitHub
               </Button>
             </div>
           </div>
 
-          {/* ---- About Me Section (influencer-style, full width) ---- */}
+          {/* ---- About Me Section ---- */}
           <div id="about" className="w-full mb-12">
             <div className="flex flex-col md:flex-row items-center gap-10 md:gap-16 bg-white rounded-3xl border border-gray-100 shadow-lg p-8 md:p-12">
-
               {/* Left: text content */}
               <div className="flex-1 space-y-5">
                 <div className="flex items-center gap-2 mb-1">
-                  <span className="text-xs text-indigo-500 font-mono tracking-widest uppercase font-semibold">/ about me</span>
+                  <span className="text-xs text-indigo-500 font-mono tracking-widest uppercase font-semibold">
+                    / about me
+                  </span>
                   <div className="flex-1 h-px bg-gradient-to-r from-indigo-200 to-transparent"></div>
                 </div>
 
                 <h2 className="text-3xl md:text-4xl font-serif text-gray-900 leading-snug">
-                  I build <span className="text-indigo-500 italic">AI systems</span> that actually work in the real world.
+                  I build{" "}
+                  <span className="text-indigo-500 italic">AI systems</span>{" "}
+                  that actually work in the real world.
                 </h2>
 
                 <p className="text-gray-600 leading-relaxed text-base font-sans">
-                  I'm a final-year student and fresher AI/Backend engineer. I specialise in building RAG pipelines, LLM-powered APIs, and intelligent agents using <span className="">Python, FastAPI, and LangChain</span>.
+                  I'm a final-year student and fresher AI/Backend engineer. I
+                  specialise in building RAG pipelines, LLM-powered APIs, and
+                  intelligent agents using{" "}
+                  <span className="">Python, FastAPI, and LangChain</span>.
                 </p>
-
 
                 {/* Tech list */}
                 <div className="pt-2">
-                  <p className="text-xs text-gray-400 uppercase tracking-widest mb-3 font-sans font-medium">Technologies I work with</p>
+                  <p className="text-xs text-gray-400 uppercase tracking-widest mb-3 font-sans font-medium">
+                    Technologies I work with
+                  </p>
                   <div className="grid grid-cols-2 gap-x-8 gap-y-1.5">
-                    {['Python', 'FastAPI', 'LangChain', 'RAG Systems', 'PostgreSQL / VectorDB', 'Docker & GCP'].map((tech) => (
+                    {[
+                      "Python",
+                      "FastAPI",
+                      "LangChain",
+                      "RAG Systems",
+                      "PostgreSQL / VectorDB",
+                      "Docker & GCP",
+                    ].map((tech) => (
                       <div key={tech} className="flex items-center gap-2">
                         <span className="text-indigo-400 text-xs">▸</span>
-                        <span className="text-gray-700 text-sm font-sans">{tech}</span>
+                        <span className="text-gray-700 text-sm font-sans">
+                          {tech}
+                        </span>
                       </div>
                     ))}
                   </div>
                 </div>
 
                 <p className="text-gray-500 text-sm font-sans italic border-l-2 border-indigo-300 pl-3">
-                  By night, I build strange little side-projects at the intersection of tech and art,  because why not?
+                  By night, I build strange little side-projects at the
+                  intersection of tech and art, because why not?
                 </p>
               </div>
 
@@ -1393,17 +1649,17 @@ export default function Portfolio() {
                   </div>
                 </div>
               </div>
-
             </div>
           </div>
 
-          {/* ---- Chat Section: side-by-side layout ---- */}
+          {/* ---- Chat Section ---- */}
           <div className="w-full mb-4">
             <div className="flex flex-col md:flex-row items-center gap-8">
-
-              {/* Left: fancy heading */}
+              {/* Left: heading */}
               <div className="flex-1 space-y-3">
-                <p className="text-xs text-indigo-500 font-mono tracking-widest uppercase font-semibold">/ AI Chatbot</p>
+                <p className="text-xs text-indigo-500 font-mono tracking-widest uppercase font-semibold">
+                  / AI Chatbot
+                </p>
                 <h2 className="text-3xl md:text-4xl font-serif text-gray-900 leading-snug">
                   Chat with
                   <br />
@@ -1414,7 +1670,9 @@ export default function Portfolio() {
                 </p>
                 <div className="flex items-center gap-2 pt-1">
                   <div className="w-2 h-2 rounded-full bg-green-400 animate-pulse"></div>
-                  <span className="text-xs text-gray-400 font-sans">Online  </span>
+                  <span className="text-xs text-gray-400 font-sans">
+                    Online
+                  </span>
                 </div>
               </div>
 
@@ -1422,7 +1680,6 @@ export default function Portfolio() {
               <div className="w-full md:w-1/2">
                 <CompactChat />
               </div>
-
             </div>
           </div>
         </div>
@@ -1433,7 +1690,10 @@ export default function Portfolio() {
         <div className="container mx-auto max-w-4xl">
           <div className="mb-16">
             <h2 className="text-4xl md:text-5xl font-serif text-gray-900 mb-6 flex items-center gap-4">
-              <span className="text-indigo-500 font-mono text-2xl md:text-3xl">/</span> experience
+              <span className="text-indigo-500 font-mono text-2xl md:text-3xl">
+                /
+              </span>{" "}
+              experience
               <div className="h-[1px] bg-gray-200 flex-1 ml-4 hidden md:block"></div>
             </h2>
           </div>
@@ -1448,7 +1708,7 @@ export default function Portfolio() {
                     key={idx}
                     onClick={() => setActiveExperienceTab(idx)}
                     className={`px-5 py-3 text-left font-sans text-sm font-medium transition-all duration-300 relative whitespace-nowrap md:w-56
-                      ${isActive ? 'text-indigo-600 bg-indigo-50/30' : 'text-gray-500 hover:text-gray-900 hover:bg-gray-50/50'}`}
+                      ${isActive ? "text-indigo-600 bg-indigo-50/30" : "text-gray-500 hover:text-gray-900 hover:bg-gray-50/50"}`}
                   >
                     {/* Indicator line for active tab */}
                     {isActive && (
@@ -1469,19 +1729,38 @@ export default function Portfolio() {
               {(() => {
                 const exp = EXPERIENCES[activeExperienceTab];
                 return (
-                  <div key={activeExperienceTab} className="animate-fade-in duration-300">
+                  <div
+                    key={activeExperienceTab}
+                    className="animate-fade-in duration-300"
+                  >
                     <h3 className="text-xl md:text-2xl font-serif text-gray-900 mb-1">
-                      {exp.role} <span className="text-indigo-600 font-sans font-medium text-lg">@ {exp.company}</span>
+                      {exp.role}{" "}
+                      <span className="text-indigo-600 font-sans font-medium text-lg">
+                        @ {exp.company}
+                      </span>
                     </h3>
-                    <p className="text-xs font-mono uppercase tracking-wider text-gray-505 mb-6 text-gray-500">
+                    <p className="text-xs font-mono uppercase tracking-wider mb-6 text-gray-500">
                       {exp.date} &nbsp;·&nbsp; {exp.location}
                     </p>
 
                     <ul className="space-y-4">
                       {exp.bullets.map((bullet, idx) => (
-                        <li key={idx} className="flex items-start gap-3 text-gray-600 text-sm leading-relaxed font-sans">
-                          <svg className="w-3 h-3 text-indigo-500 mt-1.5 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="3">
-                            <path strokeLinecap="round" strokeLinejoin="round" d="M9 5l7 7-7 7" />
+                        <li
+                          key={idx}
+                          className="flex items-start gap-3 text-gray-600 text-sm leading-relaxed font-sans"
+                        >
+                          <svg
+                            className="w-3 h-3 text-indigo-500 mt-1.5 shrink-0"
+                            fill="none"
+                            viewBox="0 0 24 24"
+                            stroke="currentColor"
+                            strokeWidth="3"
+                          >
+                            <path
+                              strokeLinecap="round"
+                              strokeLinejoin="round"
+                              d="M9 5l7 7-7 7"
+                            />
                           </svg>
                           <span>{bullet}</span>
                         </li>
@@ -1496,7 +1775,10 @@ export default function Portfolio() {
       </section>
 
       {/* --- Projects Section --- */}
-      <section id="projects" className="bg-gray-950 py-24 px-6 relative overflow-hidden z-10">
+      <section
+        id="projects"
+        className="bg-gray-950 py-24 px-6 relative overflow-hidden z-10"
+      >
         <div className="absolute inset-0 bg-[url('https://www.transparenttextures.com/patterns/stardust.png')] opacity-20"></div>
         <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[800px] h-[500px] bg-indigo-900/30 rounded-full blur-[100px] pointer-events-none"></div>
         <div className="absolute bottom-0 right-0 w-[600px] h-[600px] bg-blue-900/20 rounded-full blur-[80px] pointer-events-none"></div>
@@ -1505,7 +1787,7 @@ export default function Portfolio() {
           <div className="flex flex-col md:flex-row justify-between items-end mb-12 gap-4">
             <div>
               <h2 className="text-3xl md:text-4xl font-serif text-white mb-2">
-                Projects{' '}
+                Projects{" "}
                 <span className="bg-clip-text text-transparent bg-gradient-to-r from-blue-200 to-indigo-400">
                   I Have Worked On
                 </span>
@@ -1521,7 +1803,6 @@ export default function Portfolio() {
 
           {/* Single row of 3 compact project cards */}
           <div className="grid grid-cols-1 md:grid-cols-3 gap-5">
-
             {/* 1. FoodPilot */}
             <CompactProjectCard
               title="FoodPilot"
@@ -1560,7 +1841,7 @@ export default function Portfolio() {
               role="XGBoost · FastAPI · GPT-3.5"
               icon={Zap}
               gradient="from-blue-500 to-indigo-600"
-              stat="0.9998 AUC · &lt;100ms · 6.3M+ txns"
+              stat="0.9998 AUC · <100ms · 6.3M+ txns"
               bullets={[
                 "Fraud detection trained on 6.3M+ transactions",
                 "Engineered behavioral fraud features for high recall",
@@ -1569,42 +1850,45 @@ export default function Portfolio() {
               repoLink="https://github.com/jayesh-cmd/FinSecure-AI"
               demoLink="https://www.linkedin.com/posts/cmd-jayesh_machinelearning-frauddetection-ai-activity-7385927884600737792-4lgX/"
             />
-
           </div>
         </div>
       </section>
 
       {/* --- Creative Builds Section --- */}
-      <section id="creative-builds" className="bg-gray-950 py-24 px-6 relative overflow-hidden z-10 border-t border-white/5">
-        {/* Background ambiance */}
+      <section
+        id="creative-builds"
+        className="bg-gray-950 py-24 px-6 relative overflow-hidden z-10 border-t border-white/5"
+      >
         <div className="absolute inset-0 bg-[url('https://www.transparenttextures.com/patterns/stardust.png')] opacity-10"></div>
         <div className="absolute top-0 right-1/3 w-[600px] h-[400px] bg-purple-900/20 rounded-full blur-[100px] pointer-events-none"></div>
         <div className="absolute bottom-0 left-0 w-[500px] h-[500px] bg-emerald-900/15 rounded-full blur-[80px] pointer-events-none"></div>
 
         <div className="container mx-auto max-w-6xl relative z-10">
-          {/* Section header */}
           <div className="mb-12">
             <div className="flex items-center gap-3 mb-3">
-              <span className="text-xs text-purple-400 font-mono tracking-widest uppercase font-semibold">/ side projects</span>
+              <span className="text-xs text-purple-400 font-mono tracking-widest uppercase font-semibold">
+                / side projects
+              </span>
               <div className="flex-1 h-px bg-gradient-to-r from-purple-500/30 to-transparent hidden md:block"></div>
             </div>
             <h2 className="text-3xl md:text-4xl font-serif text-white mb-2">
-              Creative{' '}
+              Creative{" "}
               <span className="bg-clip-text text-transparent bg-gradient-to-r from-purple-300 to-emerald-400">
                 Builds
               </span>
             </h2>
             <p className="text-gray-400 text-sm font-sans">
-              Strange little experiments I build at the intersection of tech and art.
+              Strange little experiments I build at the intersection of tech and
+              art.
             </p>
           </div>
 
-          {/* Three creative project cards */}
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-
             {/* 1. Virtual Steering Wheel */}
-            <div className="group relative rounded-2xl overflow-hidden border border-white/10 hover:border-purple-500/40 transition-all duration-500 flex flex-col" style={{ background: 'rgba(255,255,255,0.03)' }}>
-              {/* Image preview */}
+            <div
+              className="group relative rounded-2xl overflow-hidden border border-white/10 hover:border-purple-500/40 transition-all duration-500 flex flex-col"
+              style={{ background: "rgba(255,255,255,0.03)" }}
+            >
               <div className="relative overflow-hidden aspect-video bg-gray-900">
                 <img
                   src="/virtual_steering.jpg"
@@ -1614,41 +1898,64 @@ export default function Portfolio() {
                 <div className="absolute inset-0 bg-gradient-to-t from-gray-950 via-gray-950/20 to-transparent"></div>
               </div>
 
-              {/* Content */}
               <div className="p-5 flex flex-col flex-1">
-                <h3 className="text-sm font-semibold text-white mb-1 leading-tight">Virtual Steering Wheel</h3>
+                <h3 className="text-sm font-semibold text-white mb-1 leading-tight">
+                  Virtual Steering Wheel
+                </h3>
                 <p className="text-gray-400 text-[11px] leading-relaxed font-sans mb-1">
-                  Control any racing game with your hands — tilt your fists to steer, open palms to brake.
+                  Control any racing game with your hands — tilt your fists to
+                  steer, open palms to brake.
                 </p>
                 <p className="text-purple-400/70 text-[10px] font-mono mb-4">
                   Python · MediaPipe · OpenCV
                 </p>
 
-                {/* Links */}
                 <div className="flex gap-2.5 mt-auto">
-                  <a href="https://github.com/jayesh-cmd/virtual-steering-wheel" target="_blank" rel="noopener noreferrer"
+                  <a
+                    href="https://github.com/jayesh-cmd/virtual-steering-wheel"
+                    target="_blank"
+                    rel="noopener noreferrer"
                     className="flex items-center gap-1.5 px-3 py-1.5 bg-white/8 hover:bg-white/15 border border-white/15 rounded-full transition-colors"
-                    title="GitHub">
-                    <svg viewBox="0 0 24 24" className="w-3 h-3 fill-white" xmlns="http://www.w3.org/2000/svg">
+                    title="GitHub"
+                  >
+                    <svg
+                      viewBox="0 0 24 24"
+                      className="w-3 h-3 fill-white"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
                       <path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z" />
                     </svg>
-                    <span className="text-white text-[10px] font-medium font-sans">Code</span>
+                    <span className="text-white text-[10px] font-medium font-sans">
+                      Code
+                    </span>
                   </a>
-                  <a href="https://www.instagram.com/reel/DavJNiiS1Xh/?utm_source=ig_web_copy_link&igsh=NTc4MTIwNjQ2YQ==" target="_blank" rel="noopener noreferrer"
+                  <a
+                    href="https://www.instagram.com/reel/DavJNiiS1Xh/?utm_source=ig_web_copy_link&igsh=NTc4MTIwNjQ2YQ=="
+                    target="_blank"
+                    rel="noopener noreferrer"
                     className="flex items-center gap-1.5 px-3 py-1.5 bg-white/8 hover:bg-white/15 border border-white/15 rounded-full transition-colors"
-                    title="Instagram Reel">
-                    <svg viewBox="0 0 24 24" className="w-3 h-3 fill-white" xmlns="http://www.w3.org/2000/svg">
+                    title="Instagram Reel"
+                  >
+                    <svg
+                      viewBox="0 0 24 24"
+                      className="w-3 h-3 fill-white"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
                       <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z" />
                     </svg>
-                    <span className="text-white text-[10px] font-medium font-sans">Reel</span>
+                    <span className="text-white text-[10px] font-medium font-sans">
+                      Reel
+                    </span>
                   </a>
                 </div>
               </div>
             </div>
 
             {/* 2. Daydreamin Music App */}
-            <div className="group relative rounded-2xl overflow-hidden border border-white/10 hover:border-purple-500/40 transition-all duration-500 flex flex-col" style={{ background: 'rgba(255,255,255,0.03)' }}>
-              {/* Image preview */}
+            <div
+              className="group relative rounded-2xl overflow-hidden border border-white/10 hover:border-purple-500/40 transition-all duration-500 flex flex-col"
+              style={{ background: "rgba(255,255,255,0.03)" }}
+            >
               <div className="relative overflow-hidden aspect-video bg-gray-900">
                 <img
                   src="/music.jpg"
@@ -1658,41 +1965,64 @@ export default function Portfolio() {
                 <div className="absolute inset-0 bg-gradient-to-t from-gray-950 via-gray-950/20 to-transparent"></div>
               </div>
 
-              {/* Content */}
               <div className="p-5 flex flex-col flex-1">
-                <h3 className="text-sm font-semibold text-white mb-1 leading-tight">Daydreamin</h3>
+                <h3 className="text-sm font-semibold text-white mb-1 leading-tight">
+                  Daydreamin
+                </h3>
                 <p className="text-gray-400 text-[11px] leading-relaxed font-sans mb-1">
-                  A personal iOS music app that searches and streams any song from the internet with lock screen controls.
+                  A personal iOS music app that searches and streams any song
+                  from the internet with lock screen controls.
                 </p>
                 <p className="text-purple-400/70 text-[10px] font-mono mb-4">
                   SwiftUI · Python · FastAPI
                 </p>
 
-                {/* Links */}
                 <div className="flex gap-2.5 mt-auto">
-                  <a href="https://github.com/jayesh-cmd/Daydreamin" target="_blank" rel="noopener noreferrer"
+                  <a
+                    href="https://github.com/jayesh-cmd/Daydreamin"
+                    target="_blank"
+                    rel="noopener noreferrer"
                     className="flex items-center gap-1.5 px-3 py-1.5 bg-white/8 hover:bg-white/15 border border-white/15 rounded-full transition-colors"
-                    title="GitHub">
-                    <svg viewBox="0 0 24 24" className="w-3 h-3 fill-white" xmlns="http://www.w3.org/2000/svg">
+                    title="GitHub"
+                  >
+                    <svg
+                      viewBox="0 0 24 24"
+                      className="w-3 h-3 fill-white"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
                       <path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z" />
                     </svg>
-                    <span className="text-white text-[10px] font-medium font-sans">Code</span>
+                    <span className="text-white text-[10px] font-medium font-sans">
+                      Code
+                    </span>
                   </a>
-                  <a href="https://www.instagram.com/reel/DX9bqmvMWD3/?utm_source=ig_web_copy_link&igsh=MzRlODBiNWFlZA==" target="_blank" rel="noopener noreferrer"
+                  <a
+                    href="https://www.instagram.com/reel/DX9bqmvMWD3/?utm_source=ig_web_copy_link&igsh=MzRlODBiNWFlZA=="
+                    target="_blank"
+                    rel="noopener noreferrer"
                     className="flex items-center gap-1.5 px-3 py-1.5 bg-white/8 hover:bg-white/15 border border-white/15 rounded-full transition-colors"
-                    title="Instagram Reel">
-                    <svg viewBox="0 0 24 24" className="w-3 h-3 fill-white" xmlns="http://www.w3.org/2000/svg">
+                    title="Instagram Reel"
+                  >
+                    <svg
+                      viewBox="0 0 24 24"
+                      className="w-3 h-3 fill-white"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
                       <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z" />
                     </svg>
-                    <span className="text-white text-[10px] font-medium font-sans">Reel</span>
+                    <span className="text-white text-[10px] font-medium font-sans">
+                      Reel
+                    </span>
                   </a>
                 </div>
               </div>
             </div>
 
             {/* 3. Virtual Keyboard & Mouse */}
-            <div className="group relative rounded-2xl overflow-hidden border border-white/10 hover:border-purple-500/40 transition-all duration-500 flex flex-col" style={{ background: 'rgba(255,255,255,0.03)' }}>
-              {/* Image preview */}
+            <div
+              className="group relative rounded-2xl overflow-hidden border border-white/10 hover:border-purple-500/40 transition-all duration-500 flex flex-col"
+              style={{ background: "rgba(255,255,255,0.03)" }}
+            >
               <div className="relative overflow-hidden aspect-video bg-gray-900">
                 <img
                   src="/virtual_mouse.jpg"
@@ -1702,49 +2032,76 @@ export default function Portfolio() {
                 <div className="absolute inset-0 bg-gradient-to-t from-gray-950 via-gray-950/20 to-transparent"></div>
               </div>
 
-              {/* Content */}
               <div className="p-5 flex flex-col flex-1">
-                <h3 className="text-sm font-semibold text-white mb-1 leading-tight">Virtual Keyboard & Mouse</h3>
+                <h3 className="text-sm font-semibold text-white mb-1 leading-tight">
+                  Virtual Keyboard & Mouse
+                </h3>
                 <p className="text-gray-400 text-[11px] leading-relaxed font-sans mb-1">
-                  A touchless system that lets you type on a virtual AR keyboard and navigate your entire computer mid-air.<br />
-                  <span className="text-blue-400">Project Exhibition: Winner at first place 🥇</span>
+                  A touchless system that lets you type on a virtual AR keyboard
+                  and navigate your entire computer mid-air.
+                  <br />
+                  <span className="text-blue-400">
+                    Project Exhibition: Winner at first place 🥇
+                  </span>
                 </p>
                 <p className="text-purple-400/70 text-[10px] font-mono mb-4">
                   Python · OpenCV · MediaPipe
                 </p>
 
-                {/* Links */}
                 <div className="flex gap-2.5 mt-auto">
-                  <a href="https://github.com/jayesh-cmd/virtual-keyboard" target="_blank" rel="noopener noreferrer"
+                  <a
+                    href="https://github.com/jayesh-cmd/virtual-keyboard"
+                    target="_blank"
+                    rel="noopener noreferrer"
                     className="flex items-center gap-1.5 px-3 py-1.5 bg-white/8 hover:bg-white/15 border border-white/15 rounded-full transition-colors"
-                    title="GitHub">
-                    <svg viewBox="0 0 24 24" className="w-3 h-3 fill-white" xmlns="http://www.w3.org/2000/svg">
+                    title="GitHub"
+                  >
+                    <svg
+                      viewBox="0 0 24 24"
+                      className="w-3 h-3 fill-white"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
                       <path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z" />
                     </svg>
-                    <span className="text-white text-[10px] font-medium font-sans">Code</span>
+                    <span className="text-white text-[10px] font-medium font-sans">
+                      Code
+                    </span>
                   </a>
-                  <a href="https://www.instagram.com/reel/DW1WLDsEQDz/?utm_source=ig_web_copy_link" target="_blank" rel="noopener noreferrer"
+                  <a
+                    href="https://www.instagram.com/reel/DW1WLDsEQDz/?utm_source=ig_web_copy_link"
+                    target="_blank"
+                    rel="noopener noreferrer"
                     className="flex items-center gap-1.5 px-3 py-1.5 bg-white/8 hover:bg-white/15 border border-white/15 rounded-full transition-colors"
-                    title="Instagram Reel">
-                    <svg viewBox="0 0 24 24" className="w-3 h-3 fill-white" xmlns="http://www.w3.org/2000/svg">
+                    title="Instagram Reel"
+                  >
+                    <svg
+                      viewBox="0 0 24 24"
+                      className="w-3 h-3 fill-white"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
                       <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z" />
                     </svg>
-                    <span className="text-white text-[10px] font-medium font-sans">Reel</span>
+                    <span className="text-white text-[10px] font-medium font-sans">
+                      Reel
+                    </span>
                   </a>
                 </div>
               </div>
             </div>
-
           </div>
         </div>
       </section>
 
-
+      {/* --- Skills Section --- */}
       <section id="skills" className="py-32 px-6 bg-white relative z-10">
         <div className="container mx-auto max-w-4xl">
           <div className="text-center mb-16">
-            <h2 className="text-4xl font-serif text-gray-900 mb-4">Technical Arsenal</h2>
-            <p className="text-gray-500 font-sans">The tools and frameworks I use to build intelligent systems.</p>
+            <h2 className="text-4xl font-serif text-gray-900 mb-4">
+              Technical Arsenal
+            </h2>
+            <p className="text-gray-500 font-sans">
+              The tools and frameworks I use to build intelligent systems.
+            </p>
           </div>
 
           <div className="border-t border-gray-200">
@@ -1757,6 +2114,7 @@ export default function Portfolio() {
             <AccordionItem
               question="How do I handle Generative AI & LLMs?"
               answer="I work with Generative AI by building RAG pipelines, integrating LLMs like Gemini, GPT-3.5, and LLaMA into applications using LangChain. I focus on prompt engineering, context management, and retrieval optimization to deliver accurate, reliable, and production-ready AI systems."
+              isOpen={openAccordion === 1}
               onClick={() => setOpenAccordion(1 === openAccordion ? -1 : 1)}
             />
             <AccordionItem
@@ -1768,6 +2126,7 @@ export default function Portfolio() {
             <AccordionItem
               question="Languages & Tools?"
               answer="Python is my primary language, with SQL for data handling and querying. I use Git/GitHub for version control, VS Code for development, and Jupyter/Colab for rapid experimentation and prototyping."
+              isOpen={openAccordion === 3}
               onClick={() => setOpenAccordion(3 === openAccordion ? -1 : 3)}
             />
           </div>
@@ -1776,7 +2135,13 @@ export default function Portfolio() {
 
       {/* --- Footer --- */}
       <footer className="bg-gray-900 text-white pt-12 pb-8 px-6 relative overflow-hidden z-10">
-        <Orb color="#4C1D95" size="300px" top="0" left="0" blur="blur-[100px]" />
+        <Orb
+          color="#4C1D95"
+          size="300px"
+          top="0"
+          left="0"
+          blur="blur-[100px]"
+        />
         <div className="container mx-auto max-w-4xl relative z-10">
           <div className="flex flex-col md:flex-row justify-between items-center gap-6 mb-8">
             <h2 className="text-2xl md:text-3xl font-serif text-center md:text-left">
@@ -1791,16 +2156,40 @@ export default function Portfolio() {
               </a>
 
               <div className="flex gap-3 justify-center">
-                <a href="https://www.linkedin.com/in/cmd-jayesh/" className="p-2.5 rounded-full bg-white/10 hover:bg-white/20 transition-colors" target="_blank" rel="noopener noreferrer" title="LinkedIn">
+                <a
+                  href="https://www.linkedin.com/in/cmd-jayesh/"
+                  className="p-2.5 rounded-full bg-white/10 hover:bg-white/20 transition-colors"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  title="LinkedIn"
+                >
                   <Linkedin size={18} />
                 </a>
-                <a href="https://github.com/jayesh-cmd" className="p-2.5 rounded-full bg-white/10 hover:bg-white/20 transition-colors" target="_blank" rel="noopener noreferrer" title="GitHub">
+                <a
+                  href="https://github.com/jayesh-cmd"
+                  className="p-2.5 rounded-full bg-white/10 hover:bg-white/20 transition-colors"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  title="GitHub"
+                >
                   <Github size={18} />
                 </a>
-                <a href="https://www.instagram.com/jeyy.sh/" className="p-2.5 rounded-full bg-white/10 hover:bg-white/20 transition-colors" target="_blank" rel="noopener noreferrer" title="Instagram">
+                <a
+                  href="https://www.instagram.com/jeyy.sh/"
+                  className="p-2.5 rounded-full bg-white/10 hover:bg-white/20 transition-colors"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  title="Instagram"
+                >
                   <Instagram size={18} />
                 </a>
-                <a href="https://youtube.com/@jey_script?si=uSQYH8HbgonKvXnL" className="p-2.5 rounded-full bg-white/10 hover:bg-white/20 transition-colors" target="_blank" rel="noopener noreferrer" title="YouTube">
+                <a
+                  href="https://youtube.com/@jey_script?si=uSQYH8HbgonKvXnL"
+                  className="p-2.5 rounded-full bg-white/10 hover:bg-white/20 transition-colors"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  title="YouTube"
+                >
                   <Youtube size={18} />
                 </a>
               </div>
@@ -1814,7 +2203,12 @@ export default function Portfolio() {
         </div>
       </footer>
 
-      <SnakeGameMode gameActive={gameActive} setGameActive={setGameActive} score={score} setScore={setScore} />
+      <SnakeGameMode
+        gameActive={gameActive}
+        setGameActive={setGameActive}
+        score={score}
+        setScore={setScore}
+      />
 
       {showMobileWarning && (
         <div className="fixed bottom-8 left-1/2 -translate-x-1/2 z-50 animate-fade-in-up pointer-events-none">
@@ -1885,18 +2279,18 @@ export default function Portfolio() {
           animation: float 10s ease-in-out infinite;
         }
         .animate-fade-in {
-            animation: fadeIn 1s ease-out;
+          animation: fadeIn 1s ease-out;
         }
         .animate-fade-in-up {
-            animation: fadeInUp 0.3s ease-out forwards;
+          animation: fadeInUp 0.3s ease-out forwards;
         }
         @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(10px); }
-            to { opacity: 1; transform: translateY(0); }
+          from { opacity: 0; transform: translateY(10px); }
+          to { opacity: 1; transform: translateY(0); }
         }
         @keyframes fadeInUp {
-            from { opacity: 0; transform: scale(0.95) translateY(20px); }
-            to { opacity: 1; transform: scale(1) translateY(0); }
+          from { opacity: 0; transform: scale(0.95) translateY(20px); }
+          to { opacity: 1; transform: scale(1) translateY(0); }
         }
 
         /* Hide scrollbars for overflow-x tabs */
@@ -1906,8 +2300,7 @@ export default function Portfolio() {
         .scrollbar-none {
           -ms-overflow-style: none;
           scrollbar-width: none;
-
-          }
+        }
       `}</style>
     </div>
   );
